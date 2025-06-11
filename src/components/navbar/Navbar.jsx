@@ -1,5 +1,6 @@
 import React from "react";
 import { FaGraduationCap } from "react-icons/fa";
+import { HiBars3 } from "react-icons/hi2";
 import { Link, NavLink } from "react-router";
 
 const Navbar = () => {
@@ -7,6 +8,9 @@ const Navbar = () => {
     <>
       <li className="text-gray-500">
         <NavLink to="/">Home</NavLink>
+      </li>
+      <li className="text-gray-500">
+        <NavLink to="/courses">Courses</NavLink>
       </li>
       <li className="text-gray-500">
         <NavLink to="/add-course">Add Course</NavLink>
@@ -19,21 +23,7 @@ const Navbar = () => {
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                {" "}
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />{" "}
-              </svg>
+              <HiBars3 className="w-8 h-8" />
             </div>
             <ul
               tabIndex={0}
@@ -44,7 +34,7 @@ const Navbar = () => {
           </div>
           <Link to="/">
             <p className="text-2xl font-bold flex items-center gap-1">
-              <span className="bg-[#4F46E5] rounded-lg text-white p-2">
+              <span className="bg-primary rounded-lg text-white p-2">
                 <FaGraduationCap />
               </span>
               <span>EduLearn</span>
@@ -55,7 +45,7 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Sign up</a>
+          <a className="btn bg-primary text-white">Sign up</a>
         </div>
       </div>
     </nav>
