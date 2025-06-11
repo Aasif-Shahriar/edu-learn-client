@@ -17,5 +17,5 @@ body {
 }
 
 a.active {
-  @apply text-[#1E293B] border-b rounded-none;
+  @apply text-[#1E293B] border-b border-primary rounded-none;
 }
