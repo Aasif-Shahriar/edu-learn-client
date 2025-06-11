@@ -3,6 +3,7 @@ import {
 } from "react-router";
 import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home/Home";
+import AddCourse from "../pages/addCourse/AddCourse";
 
 
 const router = createBrowserRouter([
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
     {
         index: true,
         Component: Home
+    },
+    {
+      path: '/add-course',
+      element: <AddCourse></AddCourse>
     }
    ]
   },
