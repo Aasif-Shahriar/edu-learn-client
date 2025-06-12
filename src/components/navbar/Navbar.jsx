@@ -5,7 +5,7 @@ import { Link, NavLink } from "react-router";
 import { AuthContex } from "../../provider/AuthContext";
 
 const Navbar = () => {
-  const {user}=use(AuthContex)
+  const { user } = use(AuthContex);
   const links = (
     <>
       <li className="text-gray-500">
@@ -48,10 +48,24 @@ const Navbar = () => {
         </div>
         <div className="navbar-end">
           {/* 📷 user's profile */}
-          <div>
-            <img src={user && user.photoURL} alt="" className="w-10 h-10 object-cover object-center rounded-full" />
+          <div className="mr-2">
+            {user && (
+              <img
+                src={user?.photoURL}
+                alt={user?.displayName}
+                title={user?.displayName}
+                className="w-10 h-10 object-cover object-center rounded-full"
+              />
+            )}
           </div>
-          <Link to='/signIn'><button className="btn bg-primary text-white">Sign In</button></Link>
+
+          {user ? (
+            <button>Logout</button>
+          ) : (
+            <Link to="/signIn">
+              <button className="btn bg-primary text-white">Sign In</button>
+            </Link>
+          )}
         </div>
       </div>
     </nav>
