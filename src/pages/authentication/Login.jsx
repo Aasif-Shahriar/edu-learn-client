@@ -1,13 +1,35 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { BiSolidLockAlt } from "react-icons/bi";
-import { FaEyeSlash, FaGithub } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
+import { FaEyeSlash } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { PiEyesFill } from "react-icons/pi";
 import { Link } from "react-router";
+import { AuthContex } from "../../provider/AuthContext";
+import { toast } from "react-toastify";
 
 const Login = () => {
+  const { signIn } = useContext(AuthContex);
   const [showPass, setShowPass] = useState(false);
+
+  const handleSignIn = (e) => {
+    e.preventDefault();
+
+    const email = e.target.userEmail.value;
+    const password = e.target.password.value;
+    console.log({ email, password });
+
+    signIn(email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+        toast.success("User logged in successful 😃");
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Something wrong!😤");
+      });
+  };
 
   return (
     <div className="bg-secondary px-4">
@@ -21,16 +43,19 @@ const Login = () => {
           </p>
 
           {/* form inputs */}
-          <form className="space-y-4">
+          <form onSubmit={handleSignIn} className="space-y-4">
+            {/* email */}
             <label className="input input-bordered w-full flex items-center gap-2 ">
               <MdEmail size={18} className="text-accent/40" />
               <input
                 type="email"
                 className="grow"
+                name="userEmail"
                 placeholder="Email Address"
+                required
               />
             </label>
-
+            {/* password */}
             <label className="input input-bordered w-full flex items-center gap-2 ">
               <BiSolidLockAlt size={20} className="text-accent/40" />
               <input
@@ -38,6 +63,7 @@ const Login = () => {
                 name="password"
                 className="grow"
                 placeholder="Password"
+                required
               />
               <span
                 onClick={() => {
@@ -58,9 +84,11 @@ const Login = () => {
               </span>
             </label>
 
-            <button type="submit" className="btn btn-primary w-full">
-              Log In
-            </button>
+            <input
+              type="submit"
+              value="Sign In"
+              className="btn btn-primary w-full"
+            />
           </form>
 
           <p className="text-sm text-center mt-4">

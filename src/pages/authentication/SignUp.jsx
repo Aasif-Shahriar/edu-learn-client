@@ -8,9 +8,11 @@ import { PiEyesFill } from "react-icons/pi";
 import { Link } from "react-router";
 import { toast } from "react-toastify";
 import { AuthContex } from "../../provider/AuthContext";
+import { updateProfile } from "firebase/auth";
+import { auth } from "../../firebase/firebase.init";
 
 const SignUp = () => {
-  const { createUser } = useContext(AuthContex);
+  const { createUser, setUser } = useContext(AuthContex);
   const [showPass, setShowPass] = useState(false);
   const [showConfirmPass, setShowConfirmPass] = useState(false);
 
@@ -21,24 +23,22 @@ const SignUp = () => {
     const formData = new FormData(form);
     const newUser = Object.fromEntries(formData.entries());
 
-    const { userEmail, password, confirmPassword } = newUser;
+    const { userName, userEmail, password, confirmPassword, userPhoto } =
+      newUser;
 
     //password validation✅
     const validation = (password) => {
       const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).+$/;
       return regex.test(password);
     };
-
     if (password.length < 8) {
       return toast.warning("Password must be at-least 8 character long");
     }
-
     if (!validation(password)) {
       return toast.warn(
         "Password must have 1 uppercase, 1 lowercase, and 1 special character"
       );
     }
-
     if (password !== confirmPassword) {
       return toast.warn("Password and Confirm Password must match");
     }
@@ -47,11 +47,21 @@ const SignUp = () => {
       .then((userCredential) => {
         // Signed up
         const user = userCredential.user;
-        console.log(user);
-        toast.success("Account has created successfully😀");
+
+        updateProfile(user, {
+          displayName: userName,
+          photoURL: userPhoto,
+        })
+          .then(() => {
+            setUser(auth.currentUser);
+            toast.success("Account has created successfully😀");
+          })
+          .catch((error) => {
+            console.log(`Error from updateProfile: ${error}`);
+          });
       })
       .catch((error) => {
-        console.log(error);
+        console.log(`error from createUser: ${error}`);
         toast.error("This account is already exist!😑");
       });
   };
@@ -169,7 +179,7 @@ const SignUp = () => {
             <Link to="/signIn">
               {" "}
               <span className="text-blue-600 hover:underline font-bold">
-                Login
+                Sign In
               </span>
             </Link>
           </p>
