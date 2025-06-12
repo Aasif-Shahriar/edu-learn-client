@@ -3,6 +3,8 @@ import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home/Home";
 import AddCourse from "../pages/addCourse/AddCourse";
 import NotFound from "../pages/not-found/NotFound";
+import SignUp from "../pages/authentication/SignUp";
+import Login from "../pages/authentication/Login";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +18,14 @@ const router = createBrowserRouter([
       {
         path: "/add-course",
         element: <AddCourse></AddCourse>,
+      },
+      {
+        path: '/signIn',
+        Component: Login
+      },
+      {
+        path: '/signUp',
+        Component: SignUp
       },
     ],
   },

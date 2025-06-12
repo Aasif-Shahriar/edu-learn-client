@@ -1,9 +1,11 @@
-import React from "react";
+import React, { use } from "react";
 import { FaGraduationCap } from "react-icons/fa";
 import { HiBars3 } from "react-icons/hi2";
 import { Link, NavLink } from "react-router";
+import { AuthContex } from "../../provider/AuthContext";
 
 const Navbar = () => {
+  const {name}=use(AuthContex)
   const links = (
     <>
       <li className="text-gray-500">
@@ -45,7 +47,8 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
         <div className="navbar-end">
-          <a className="btn bg-primary text-white">Sign up</a>
+          <p>{name}</p>
+          <Link to='/signIn'><button className="btn bg-primary text-white">Sign In</button></Link>
         </div>
       </div>
     </nav>
