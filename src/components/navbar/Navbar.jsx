@@ -3,7 +3,6 @@ import { FaGraduationCap } from "react-icons/fa";
 import { HiBars3 } from "react-icons/hi2";
 import { Link, NavLink } from "react-router";
 import { AuthContext } from "../../provider/AuthContext";
-import { toast } from "react-toastify";
 import { RxExit } from "react-icons/rx";
 
 import "react-tooltip/dist/react-tooltip.css";
