@@ -5,7 +5,7 @@ import { FaEyeSlash, FaUser } from "react-icons/fa";
 
 import { MdEmail, MdInsertPhoto } from "react-icons/md";
 import { PiEyesFill } from "react-icons/pi";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../provider/AuthContext";
 import { updateProfile } from "firebase/auth";
@@ -15,6 +15,12 @@ const SignUp = () => {
   const { createUser, setUser } = useContext(AuthContext);
   const [showPass, setShowPass] = useState(false);
   const [showConfirmPass, setShowConfirmPass] = useState(false);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
+
+  console.log(`location from signUp: ${from}`);
 
   const handlleSignUp = (e) => {
     e.preventDefault();
@@ -26,7 +32,7 @@ const SignUp = () => {
     const { userName, userEmail, password, confirmPassword, userPhoto } =
       newUser;
 
-      console.log({userName,userEmail,userPhoto});
+    console.log({ userName, userEmail, userPhoto });
 
     //password validation✅
     const validation = (password) => {
@@ -59,6 +65,8 @@ const SignUp = () => {
           .then(() => {
             setUser(auth.currentUser);
             toast.success("Account has created successfully😀");
+            navigate(from, { replace: true });
+            form.reset();
           })
           .catch((error) => {
             console.log(`Error from updateProfile: ${error}`);

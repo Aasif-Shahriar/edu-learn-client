@@ -3,13 +3,18 @@ import { BiSolidLockAlt } from "react-icons/bi";
 import { FaEyeSlash } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { PiEyesFill } from "react-icons/pi";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../provider/AuthContext";
 import { toast } from "react-toastify";
+import SocialLogin from "./SocialLogin";
 
 const Login = () => {
   const { signIn } = useContext(AuthContext);
   const [showPass, setShowPass] = useState(false);
+  const location = useLocation()
+  const navigate = useNavigate()
+
+  const from = location.state?.from?.pathname || "/";
 
   const handleSignIn = (e) => {
     e.preventDefault();
@@ -24,6 +29,7 @@ const Login = () => {
         const user = userCredential.user;
         console.log(user);
         toast.success("User logged in successful 😃");
+        navigate(from,{replace: true})
       })
       .catch((error) => {
         console.log(error);
@@ -41,6 +47,8 @@ const Login = () => {
           <p className="text-center text-sm text-gray-500 mb-6">
             Join to enroll in top courses and advance your career
           </p>
+
+          <SocialLogin></SocialLogin>
 
           {/* form inputs */}
           <form onSubmit={handleSignIn} className="space-y-4">
