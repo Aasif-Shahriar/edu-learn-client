@@ -4,11 +4,11 @@ import { FaEyeSlash } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { PiEyesFill } from "react-icons/pi";
 import { Link } from "react-router";
-import { AuthContex } from "../../provider/AuthContext";
+import { AuthContext } from "../../provider/AuthContext";
 import { toast } from "react-toastify";
 
 const Login = () => {
-  const { signIn } = useContext(AuthContex);
+  const { signIn } = useContext(AuthContext);
   const [showPass, setShowPass] = useState(false);
 
   const handleSignIn = (e) => {

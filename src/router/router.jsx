@@ -5,6 +5,7 @@ import AddCourse from "../pages/addCourse/AddCourse";
 import NotFound from "../pages/not-found/NotFound";
 import SignUp from "../pages/authentication/SignUp";
 import Login from "../pages/authentication/Login";
+import PrivateRoute from "../private/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -17,15 +18,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/add-course",
-        element: <AddCourse></AddCourse>,
+        element: (
+          <PrivateRoute>
+            <AddCourse></AddCourse>
+          </PrivateRoute>
+        ),
       },
       {
-        path: '/signIn',
-        Component: Login
+        path: "/signIn",
+        Component: Login,
       },
       {
-        path: '/signUp',
-        Component: SignUp
+        path: "/signUp",
+        Component: SignUp,
       },
     ],
   },

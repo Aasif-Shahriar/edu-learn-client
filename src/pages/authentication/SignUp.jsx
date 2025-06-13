@@ -7,12 +7,12 @@ import { MdEmail, MdInsertPhoto } from "react-icons/md";
 import { PiEyesFill } from "react-icons/pi";
 import { Link } from "react-router";
 import { toast } from "react-toastify";
-import { AuthContex } from "../../provider/AuthContext";
+import { AuthContext } from "../../provider/AuthContext";
 import { updateProfile } from "firebase/auth";
 import { auth } from "../../firebase/firebase.init";
 
 const SignUp = () => {
-  const { createUser, setUser } = useContext(AuthContex);
+  const { createUser, setUser } = useContext(AuthContext);
   const [showPass, setShowPass] = useState(false);
   const [showConfirmPass, setShowConfirmPass] = useState(false);
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AuthContex } from "./AuthContext";
+import { AuthContext } from "./AuthContext";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -47,7 +47,7 @@ const AuthProvider = ({ children }) => {
     setUser,
   };
 
-  return <AuthContex.Provider value={authInfo}>{children}</AuthContex.Provider>;
+  return <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;
