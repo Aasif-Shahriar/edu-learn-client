@@ -26,6 +26,8 @@ const SignUp = () => {
     const { userName, userEmail, password, confirmPassword, userPhoto } =
       newUser;
 
+      console.log({userName,userEmail,userPhoto});
+
     //password validation✅
     const validation = (password) => {
       const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).+$/;
@@ -47,6 +49,8 @@ const SignUp = () => {
       .then((userCredential) => {
         // Signed up
         const user = userCredential.user;
+
+        console.log(`user from sign up func: ${user}`);
 
         updateProfile(user, {
           displayName: userName,
