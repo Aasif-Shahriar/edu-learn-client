@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { AuthContext } from "../../provider/AuthContext";
 import { updateProfile } from "firebase/auth";
 import { auth } from "../../firebase/firebase.init";
+import SocialLogin from "./SocialLogin";
 
 const SignUp = () => {
   const { createUser, setUser } = useContext(AuthContext);
@@ -87,6 +88,8 @@ const SignUp = () => {
           <p className="text-center text-sm text-gray-500 mb-6">
             Join to enroll in top courses and advance your career
           </p>
+
+          <SocialLogin></SocialLogin>
 
           {/* form inputs */}
           <form onSubmit={handlleSignUp} className="space-y-4">

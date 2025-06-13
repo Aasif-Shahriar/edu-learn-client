@@ -8,6 +8,7 @@ import { RxExit } from "react-icons/rx";
 
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
   const { user, signOutUser } = use(AuthContext);
@@ -16,7 +17,11 @@ const Navbar = () => {
   const handleSignOut = () => {
     signOutUser()
       .then(() => {
-        toast.success("User signed out successffully");
+        Swal.fire({
+          title: "User signed out successful",
+          icon: "success",
+          draggable: true,
+        });
       })
       .catch((err) => {
         console.log(`Error from signOut ${err}`);
@@ -77,7 +82,9 @@ const Navbar = () => {
           ) : (
             <div>
               <span className="mr-2 md:mr-5 text-gray-500">
-                <NavLink to="/signUp">Sign up</NavLink>
+                <NavLink to="/signUp" className="px-2 py-2">
+                  Sign up
+                </NavLink>
               </span>
               <Link to="/signIn">
                 <button className="btn bg-primary text-white">Sign In</button>
