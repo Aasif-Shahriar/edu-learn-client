@@ -4,7 +4,7 @@ import { HiBars3 } from "react-icons/hi2";
 import { Link, NavLink } from "react-router";
 import { AuthContext } from "../../provider/AuthContext";
 import { RxExit } from "react-icons/rx";
-
+import { motion } from "motion/react";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
 import Swal from "sweetalert2";
@@ -35,9 +35,11 @@ const Navbar = () => {
       <li className="text-gray-500">
         <NavLink to="/courses">Courses</NavLink>
       </li>
-      <li className="text-gray-500">
-        <NavLink to="/add-course">Add Course</NavLink>
-      </li>
+      {user && (
+        <li className="text-gray-500">
+          <NavLink to="/add-course">Add Course</NavLink>
+        </li>
+      )}
     </>
   );
   return (
@@ -67,6 +69,7 @@ const Navbar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
+        {/* navbar end */}
         <div className="navbar-end">
           {user ? (
             <button
@@ -79,16 +82,23 @@ const Navbar = () => {
               <Tooltip id="logout-tooltip" place="bottom"></Tooltip>
             </button>
           ) : (
-            <div>
+            <>
+              {" "}
               <span className="mr-2 md:mr-5 text-gray-500">
                 <NavLink to="/signUp" className="px-2 py-2">
                   Sign up
                 </NavLink>
               </span>
               <Link to="/signIn">
-                <button className="btn bg-primary text-white">Sign In</button>
+                <motion.button
+                  animate={{ y: [0, -6, 0] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                  className="btn bg-primary text-white"
+                >
+                  Sign In
+                </motion.button>
               </Link>
-            </div>
+            </>
           )}
           {/* 📷 user's profile */}
           <div className="ml-4">

@@ -200,6 +200,7 @@ const SignUp = () => {
           </p>
         </div>
       </div>
+      <title>SignUp - EduLearn</title>
     </div>
   );
 };

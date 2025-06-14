@@ -39,6 +39,7 @@ const Login = () => {
 
   return (
     <div className="bg-secondary px-4">
+      <title>SignIn - EduLearn</title>
       <div className="flex justify-center items-center min-h-screen">
         <div className="w-full max-w-md p-8 shadow-lg bg-white rounded-lg">
           <h2 className="text-3xl font-bold text-center mb-2 text-accent">

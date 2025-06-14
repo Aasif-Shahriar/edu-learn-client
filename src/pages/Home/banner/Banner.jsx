@@ -3,6 +3,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { NextArrow, PrevArrow } from "./CustomArrow";
+import { motion } from "motion/react";
 
 const Banner = () => {
   const settings = {
@@ -46,7 +47,14 @@ const Banner = () => {
   return (
     // px-6 md:px-16 lg:px-32
     <div>
-      <section className="bg-primary text-white py-20 flex justify-center items-center min-h-[500px] slider-container">
+      <motion.section
+        initial={{ backgroundColor: "#4F46E5" }}
+        animate={{
+          backgroundColor: ["#4F46E5", "#1D4ED8", "#1E3A8A", "#4F46E5"],
+        }}
+        transition={{ duration: 6, repeat: Infinity, repeatType: "loop" }}
+        className="bg-primary text-white py-20 flex justify-center items-center min-h-[500px] slider-container"
+      >
         <Slider {...settings} className="container px-4">
           {/* slider - 1 */}
           <div>
@@ -128,7 +136,7 @@ const Banner = () => {
             </div>
           </div>
         </Slider>
-      </section>
+      </motion.section>
     </div>
   );
 };

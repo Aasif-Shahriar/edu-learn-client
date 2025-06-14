@@ -25,6 +25,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const signOutUser = () => {
+    setLoading(true);
     return signOut(auth);
   };
 
@@ -47,7 +48,9 @@ const AuthProvider = ({ children }) => {
     setUser,
   };
 
-  return <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
+  );
 };
 
 export default AuthProvider;

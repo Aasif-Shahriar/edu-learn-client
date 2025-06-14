@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../provider/AuthContext";
 
 const AddCourseFrom = () => {
+  const {user}=useContext(AuthContext)
   const handleAddCourse = (e) => {
     e.preventDefault();
+
+    const form = e.target;
+    const formData = new FormData(form)
+    const newCourse = Object.fromEntries(formData.entries())
+
+    console.log(newCourse,user.displayName);
   };
   return (
     <div>
-      <div className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md border border-primary/20">
+      <div className="max-w-md bg-white p-6 rounded-lg shadow-md border border-primary/20">
         <form onSubmit={handleAddCourse} className="space-y-4">
           {/* course title */}
           <div>
