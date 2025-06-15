@@ -64,7 +64,7 @@ const FeaturedCourses = () => {
       <h2 className="text-3xl font-bold mb-4">Featured Courses</h2>
       <p>Explore our most popular and highly-rated courses</p>
 
-      <div className=" slider-container ">
+      <div className="slider-container ">
         <Slider {...settings}>
           {courses.map((course) => (
             <div key={course._id} className="py-10 px-2">
