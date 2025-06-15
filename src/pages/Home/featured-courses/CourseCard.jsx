@@ -17,7 +17,7 @@ export default function CourseCard({ course }) {
   return (
     <Link to={`/course-details/${course._id}`}>
       {" "}
-      <div className="max-w-sm bg-white shadow-lg rounded-xl hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-200">
+      <div className="max-w-sm h-[500px] bg-white shadow-lg rounded-xl hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-200">
         {/* Top Image Section */}
         <div className="relative h-48">
              <img src={bannerImage} alt={title} className="h-full w-full object-cover object-center" />
