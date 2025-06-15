@@ -1,7 +1,7 @@
 import React from "react";
 
 import RightSide from "./RightSide";
-import AddCourseFrom from "./AddCourseFrom";
+import CourseFromAccordion from "./CourseFromAccordion";
 
 const AddCourse = () => {
   return (
@@ -14,7 +14,7 @@ const AddCourse = () => {
 
         <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* form */}
-          <AddCourseFrom></AddCourseFrom>
+          <CourseFromAccordion></CourseFromAccordion>
           {/* Right-side panels */}
           <RightSide></RightSide>
         </section>

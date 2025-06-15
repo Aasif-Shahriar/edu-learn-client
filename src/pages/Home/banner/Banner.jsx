@@ -11,8 +11,7 @@ const Banner = () => {
     infinite: true,
     slidesToShow: 1,
     slidesToScroll: 1,
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
+    arrows: false,
     autoplay: true,
     autoplaySpeed: 3000,
     pauseOnHover: true,
@@ -55,7 +54,7 @@ const Banner = () => {
         transition={{ duration: 6, repeat: Infinity, repeatType: "loop" }}
         className="bg-primary text-white py-20 flex justify-center items-center min-h-[500px] slider-container"
       >
-        <Slider {...settings} className="container px-4">
+        <Slider {...settings} className="container mx-auto px-4">
           {/* slider - 1 */}
           <div>
             <h1 className="text-4xl md:text-5xl font-bold leading-tight">

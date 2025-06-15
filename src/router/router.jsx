@@ -6,6 +6,8 @@ import NotFound from "../pages/not-found/NotFound";
 import SignUp from "../pages/authentication/SignUp";
 import Login from "../pages/authentication/Login";
 import PrivateRoute from "../private/PrivateRoute";
+import CourseDetails from "../pages/Home/course-details/CourseDetails";
+import Loading from "../components/loading/Loading";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +25,16 @@ const router = createBrowserRouter([
             <AddCourse></AddCourse>
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/course-details/:id",
+        element: (
+          <PrivateRoute>
+            <CourseDetails></CourseDetails>
+          </PrivateRoute>
+        ),
+        loader: ({params})=>fetch(`http://localhost:3000/courses/${params.id}`),
+        hydrateFallbackElement: <Loading></Loading>
       },
       {
         path: "/signIn",
