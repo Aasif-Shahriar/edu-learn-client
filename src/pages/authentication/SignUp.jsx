@@ -13,7 +13,7 @@ import { auth } from "../../firebase/firebase.init";
 import SocialLogin from "./SocialLogin";
 
 const SignUp = () => {
-  const { createUser, setUser } = useContext(AuthContext);
+  const { createUser, setUser,setLoading } = useContext(AuthContext);
   const [showPass, setShowPass] = useState(false);
   const [showConfirmPass, setShowConfirmPass] = useState(false);
 
@@ -37,7 +37,7 @@ const SignUp = () => {
 
     //password validation✅
     const validation = (password) => {
-      const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).+$/;
+      const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/;
       return regex.test(password);
     };
     if (password.length < 8) {
@@ -45,7 +45,7 @@ const SignUp = () => {
     }
     if (!validation(password)) {
       return toast.warn(
-        "Password must have 1 uppercase, 1 lowercase, and 1 special character"
+        "Password must have 1 uppercase, 1 lowercase, 1 special character and 1 number"
       );
     }
     if (password !== confirmPassword) {
@@ -68,6 +68,7 @@ const SignUp = () => {
             toast.success("Account has created successfully😀");
             navigate(from, { replace: true });
             form.reset();
+            setLoading(false)
           })
           .catch((error) => {
             console.log(`Error from updateProfile: ${error}`);

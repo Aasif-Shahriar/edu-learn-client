@@ -41,6 +41,7 @@ const AuthProvider = ({ children }) => {
 
   const authInfo = {
     loading,
+    setLoading,
     createUser,
     signIn,
     signOutUser,

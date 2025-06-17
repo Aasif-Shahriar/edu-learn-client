@@ -8,7 +8,7 @@ import Login from "../pages/authentication/Login";
 import PrivateRoute from "../private/PrivateRoute";
 import CourseDetails from "../pages/Home/course-details/CourseDetails";
 import Loading from "../components/loading/Loading";
-import EnrolledInCourse from "../pages/enroll-in-course/EnrolledInCourse";
+import Courses from "../pages/all-courses/Courses";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +27,12 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+        {
+        path: '/courses',
+        Component: Courses,
+        loader: ()=>fetch('http://localhost:3000/courses'),
+        hydrateFallbackElement: <Loading></Loading>
+      },
       {
         path: "/course-details/:id",
         element: <CourseDetails></CourseDetails>,
@@ -35,16 +41,16 @@ const router = createBrowserRouter([
         hydrateFallbackElement: <Loading></Loading>,
       },
       {
-        path: '/enrolledInCourse/:id',
-        element: <PrivateRoute><EnrolledInCourse></EnrolledInCourse></PrivateRoute>
-      },
-      {
         path: "/signIn",
         Component: Login,
       },
       {
         path: "/signUp",
         Component: SignUp,
+      },
+      {
+        path: '/courses',
+        Component: Courses
       },
     ],
   },
