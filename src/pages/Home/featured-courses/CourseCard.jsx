@@ -49,8 +49,8 @@ export default function CourseCard({ course }) {
               </span>
             </div>
             {/* Price */}
-            <div className="mt-4 text-right text-indigo-600 font-bold text-lg">
-              <IoMdPricetag className="inline mr-1" />
+            <div className="flex items-center mt-4 text-right text-indigo-600 font-bold text-lg">
+              <IoMdPricetag />
               {price}
             </div>
           </div>

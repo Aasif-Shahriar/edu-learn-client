@@ -1,21 +1,40 @@
 import React from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import useAuth from "../../../hooks/useAuth";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const EnrollPriceCard = ({ course }) => {
-  const { _id, benefits, price } = course;
+  const { _id, benefits, price, title } = course;
 
-  const {user} = useAuth()
+  const { user } = useAuth();
 
-  const handleEnroll=()=>{
+  console.log(`user from enrollcard ${user?.email}`);
+
+  const handleEnroll = () => {
     const enrollment = {
       courseId: _id,
-      userEmail: user.email
-    }
+      student: user.email,
+    };
 
-   
+    axios
+      .post("http://localhost:3000/enrollments", enrollment)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.insertedId) {
+          Swal.fire({
+            title: `Your enrollment to "${title}" course has been successful👏`,
+            icon: "success",
+            draggable: true,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
-  }
+    console.log(enrollment);
+  };
 
   return (
     <div className="bg-white  rounded-xl shadow-lg p-6 border border-gray-100 self-start">
@@ -40,7 +59,13 @@ const EnrollPriceCard = ({ course }) => {
       </div>
 
       {/* Enroll button */}
-      <button disabled={!user} onClick={handleEnroll} className="btn btn-primary w-full mt-6">{!user ? 'Login To Enroll':'Enroll Now'}</button>
+      <button
+        disabled={!user}
+        onClick={handleEnroll}
+        className="btn btn-primary w-full mt-6"
+      >
+        {!user ? "Login To Enroll" : "Enroll Now"}
+      </button>
 
       <ul className="text-sm text-gray-700 mt-6 space-y-2">
         {benefits.map((data, idx) => (
