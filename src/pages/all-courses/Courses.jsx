@@ -12,7 +12,7 @@ const Courses = () => {
   const advanced = courses.filter((course) => course.level == "Advanced");
   console.log(advanced);
   return (
-    <div className="max-w-7xl mx-auto space-y-8 my-10">
+    <div className="max-w-7xl mx-auto px-4 space-y-8 my-10">
       <div>
         <BeginnerLevel beginner={beginner}></BeginnerLevel>
       </div>

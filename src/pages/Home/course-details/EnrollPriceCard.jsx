@@ -3,11 +3,13 @@ import { FaCheckCircle } from "react-icons/fa";
 import useAuth from "../../../hooks/useAuth";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 
 const EnrollPriceCard = ({ course }) => {
   const { _id, benefits, price, title } = course;
 
   const { user } = useAuth();
+  const navigate = useNavigate()
 
   console.log(`user from enrollcard ${user?.email}`);
 
@@ -27,6 +29,7 @@ const EnrollPriceCard = ({ course }) => {
             icon: "success",
             draggable: true,
           });
+          navigate('/my-enrollments')
         }
       })
       .catch((err) => {

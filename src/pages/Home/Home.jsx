@@ -2,6 +2,7 @@ import React from "react";
 import Banner from "./banner/Banner";
 import Service from "./services/Service";
 import FeaturedCourses from "./featured-courses/FeaturedCourses";
+import BrowseCategories from "./browse-top-categories/BrowseCategories";
 
 const Home = () => {
 
@@ -19,6 +20,10 @@ const Home = () => {
       {/* featured courses */}
       <div className="bg-secondary">
         <FeaturedCourses></FeaturedCourses>
+      </div>
+      {/* browse top categories */}
+      <div className="bg-white py-10">
+        <BrowseCategories></BrowseCategories>
       </div>
 
       <title>Home - EduLearn</title>

@@ -5,10 +5,12 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { NextArrowFeature, PrevArrowFeature } from "./FeatureCustomArrow";
+import { useNavigate } from "react-router";
 
 const FeaturedCourses = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://localhost:3000/courses/latest")
@@ -71,6 +73,15 @@ const FeaturedCourses = () => {
             </div>
           ))}
         </Slider>
+      </div>
+
+      <div className="text-center">
+        <button
+          onClick={() => navigate("/courses")}
+          className="btn btn-outline border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
+        >
+          View All Course
+        </button>
       </div>
     </div>
   );

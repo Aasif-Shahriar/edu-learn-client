@@ -9,6 +9,7 @@ import PrivateRoute from "../private/PrivateRoute";
 import CourseDetails from "../pages/Home/course-details/CourseDetails";
 import Loading from "../components/loading/Loading";
 import Courses from "../pages/all-courses/Courses";
+import MyEnrollments from "../pages/my-enrollments/MyEnrollments";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
         path: '/courses',
         Component: Courses
       },
+      {
+        path:'/my-enrollments',
+        element: <PrivateRoute><MyEnrollments></MyEnrollments></PrivateRoute>
+      }
     ],
   },
   {
