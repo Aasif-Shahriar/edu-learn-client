@@ -8,15 +8,15 @@ const ExtraSection = () => {
     <div className="max-w-7xl mx-auto px-4">
       <div className="flex flex-col md:flex-row items-center gap-10 ">
         {/* left */}
-        <div>
+        <div className="w-full md:w-1/2">
           <img
-            className="max-w-2xl rounded-2xl"
+            className="w-full rounded-2xl"
             src={sectionImg}
             alt="working two people in office"
           />
         </div>
         {/* right */}
-        <div className="space-y-5">
+        <div className="space-y-5 w-full md:w-1/2">
           <h2 className="text-4xl font-bold text-accent/80">
             Become an Instructor
           </h2>

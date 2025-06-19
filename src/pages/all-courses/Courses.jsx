@@ -22,6 +22,7 @@ const Courses = () => {
       <div>
         <AdvanceLevel advanced={advanced}></AdvanceLevel>
       </div>
+      <title>All Courses - EduLearn</title>
     </div>
   );
 };
