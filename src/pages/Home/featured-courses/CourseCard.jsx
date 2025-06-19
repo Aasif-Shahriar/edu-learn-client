@@ -48,7 +48,7 @@ export default function CourseCard({ course }) {
               <img
                 src={instructorPhoto}
                 alt={`${instructorName}_avatar`}
-                className="w-8 h-8 rounded-full mr-2"
+                className="w-8 h-8 rounded-full object-cover mr-2"
               />
               <span className="text-gray-800 font-medium">
                 {instructorName}

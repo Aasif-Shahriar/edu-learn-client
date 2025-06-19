@@ -3,7 +3,7 @@ import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-const CourseFromAccordion = () => {
+const UpdateCourseForm = () => {
   const { user } = useAuth();
   const handleAddCourse = (e) => {
     e.preventDefault();
@@ -279,4 +279,4 @@ const CourseFromAccordion = () => {
   );
 };
 
-export default CourseFromAccordion;
+export default UpdateCourseForm;

@@ -10,6 +10,8 @@ import CourseDetails from "../pages/Home/course-details/CourseDetails";
 import Loading from "../components/loading/Loading";
 import Courses from "../pages/all-courses/Courses";
 import MyEnrollments from "../pages/my-enrollments/MyEnrollments";
+import ManageCourses from "../pages/manage-courses/ManageCourses";
+import UpdateCourse from "../pages/manage-courses/UpdateCourse";
 
 const router = createBrowserRouter([
   {
@@ -28,11 +30,20 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      
         {
         path: '/courses',
         Component: Courses,
         loader: ()=>fetch('http://localhost:3000/courses'),
         hydrateFallbackElement: <Loading></Loading>
+      },
+      {
+        path: '/manage-courses',
+        element: <PrivateRoute><ManageCourses></ManageCourses></PrivateRoute>
+      },
+      {
+        path: '/update-course/:id',
+        element: <PrivateRoute><UpdateCourse></UpdateCourse></PrivateRoute>
       },
       {
         path: "/course-details/:id",

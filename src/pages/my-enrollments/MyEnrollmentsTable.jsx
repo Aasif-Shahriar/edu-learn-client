@@ -5,6 +5,8 @@ import axios from "axios";
 const MyEnrollmentsTable = ({ myEnrollmentsPromise }) => {
   const [myEnrollments, setMyEnrollments] = useState([]);
 
+  console.log(`enrollments object from my-enrollment-table: ${myEnrollments}`);
+
   useEffect(() => {
     myEnrollmentsPromise.then((data) => {
       setMyEnrollments(data);

@@ -36,12 +36,23 @@ const Navbar = () => {
       <li className="text-gray-500">
         <NavLink to="/courses">Courses</NavLink>
       </li>
+      {/* instructor routes */}
       {user && (
         <>
           {" "}
           <li className="text-gray-500">
             <NavLink to="/add-course">Add Course</NavLink>
           </li>
+          <li className="text-gray-500">
+            <NavLink to="/manage-courses">Manage Courses</NavLink>
+          </li>
+        </>
+      )}
+
+      {/* user related routes */}
+      {user && (
+        <>
+          {" "}
           <li className="text-gray-500">
             <NavLink to="/my-enrollments">My Enrollments</NavLink>
           </li>

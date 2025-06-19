@@ -1,8 +1,7 @@
 import React from "react";
-import RightSide from "./RightSide";
-import CourseFromAccordion from "./CourseFromAccordion";
+import UpdateCourseForm from "./UpdateCourseForm";
 
-const AddCourse = () => {
+const UpdateCourse = () => {
   return (
     <div className="bg-secondary py-5 md:py-10">
       <div className="px-4 max-w-7xl mx-auto">
@@ -13,9 +12,11 @@ const AddCourse = () => {
 
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* form */}
-         <div className="lg:col-span-2"> <CourseFromAccordion></CourseFromAccordion></div>
-          {/* Right-side panels */}
-          <div><RightSide></RightSide></div>
+          <div className="lg:col-span-2">
+            {" "}
+            <UpdateCourseForm></UpdateCourseForm>
+          </div>
+        
         </section>
       </div>
       <title>Add Course - EduLearn</title>
@@ -23,4 +24,4 @@ const AddCourse = () => {
   );
 };
 
-export default AddCourse;
+export default UpdateCourse;
