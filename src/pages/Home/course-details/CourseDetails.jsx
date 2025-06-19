@@ -7,7 +7,7 @@ import LeftCourseDetails from "./LeftCourseDetails";
 const CourseDetails = () => {
   const course = useLoaderData();
 
-
+  console.log(course);
   const navigate = useNavigate();
   return (
     <div className="bg-secondary min-h-screen py-10 px-4">
@@ -22,7 +22,7 @@ const CourseDetails = () => {
         {/* layout of details */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Left Side (Content) */}
-        <LeftCourseDetails course={course}></LeftCourseDetails>
+          <LeftCourseDetails course={course}></LeftCourseDetails>
 
           {/* Right Side (Enroll Card) */}
           <EnrollPriceCard course={course}></EnrollPriceCard>

@@ -7,21 +7,27 @@ export default function CourseCard({ course }) {
   const {
     _id,
     title,
-    bannerImage,
+    imageUrl,
     instructorName,
+    instructorPhoto,
     price,
     duration,
     level,
     publishDate,
   } = course;
-  console.log(_id);
+  const date = new Date(publishDate);
+  const publishedDate = date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
   return (
     <Link to={`/course-details/${_id}`}>
       <div className="max-w-sm h-[420px] flex-grow bg-white shadow-lg rounded-xl hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-200">
         {/* Top Image Section */}
         <div className="relative h-48">
           <img
-            src={bannerImage}
+            src={imageUrl}
             alt={title}
             className="h-full w-full object-cover object-center"
           />
@@ -40,7 +46,7 @@ export default function CourseCard({ course }) {
             <div className="flex items-center">
               {" "}
               <img
-                src="https://i.pravatar.cc/32?img=10"
+                src={instructorPhoto}
                 alt={`${instructorName}_avatar`}
                 className="w-8 h-8 rounded-full mr-2"
               />
@@ -67,7 +73,7 @@ export default function CourseCard({ course }) {
             </span>
             <span className="flex items-center">
               <MdUpdate className="mr-1" />
-              Published {publishDate}
+               {publishedDate}
             </span>
           </div>
 

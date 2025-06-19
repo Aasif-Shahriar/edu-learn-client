@@ -1,17 +1,59 @@
 import React from "react";
+import useAuth from "../../hooks/useAuth";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const CourseFromAccordion = () => {
+  const { user } = useAuth();
   const handleAddCourse = (e) => {
     e.preventDefault();
 
     const form = e.target;
     const formData = new FormData(form);
-    const newCourse = Object.fromEntries(formData.entries());
+    const inputData = Object.fromEntries(formData.entries());
+    const newCourse = {
+      ...inputData,
+      instructorName: user?.displayName,
+      instructorEmail: user?.email,
+      instructorPhoto: user?.photoURL,
+    };
+
+    //process of learning objectives
+    newCourse.learningObjectives = newCourse.learningObjectives
+      .split(",")
+      .map((item) => item.trim());
+    //process of prerequisites
+    newCourse.prerequisites = newCourse.prerequisites
+      .split(",")
+      .map((item) => item.trim());
+    //process of benefits
+    newCourse.benefits = newCourse.benefits
+      .split(",")
+      .map((item) => item.trim());
+    //process of tags
+    newCourse.tags = newCourse.tags.split(",").map((item) => item.trim());
     console.log(newCourse);
+
+    axios
+      .post("http://localhost:3000/courses", newCourse)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.insertedId) {
+          Swal.fire({
+            title: "Drag me!",
+            icon: "success",
+            draggable: true,
+          });
+          form.reset();
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <form onSubmit={handleAddCourse}>
-      <div className="max-w-md  p-6 space-y-6 bg-blue-50 border border-blue-500/20 rounded-xl shadow-md">
+      <div className="p-6 space-y-6 bg-blue-50 border border-blue-500/20 rounded-xl shadow-md">
         {/* Section 1: Course Basics */}
         <div className="collapse collapse-arrow bg-base-100">
           <input type="checkbox" />
@@ -38,13 +80,13 @@ const CourseFromAccordion = () => {
             <div>
               <label className="label">
                 <span className="label-text font-semibold">
-                  Short Description <span className="text-red-500">*</span>
+                  Course Description <span className="text-red-500">*</span>
                 </span>
               </label>
               <textarea
                 name="description"
                 className="textarea textarea-bordered w-full resize-none"
-                placeholder="Describe what students will learn in this course..."
+                placeholder="Describe what students will learn in this course (min - 150 words)"
                 required
               ></textarea>
             </div>
@@ -52,7 +94,7 @@ const CourseFromAccordion = () => {
             <div>
               <label className="label">
                 <span className="label-text font-semibold">
-                  Course Image URL <span className="text-red-500">*</span>
+                  Course Field Image URL <span className="text-red-500">*</span>
                 </span>
               </label>
               <input
@@ -101,184 +143,107 @@ const CourseFromAccordion = () => {
           </div>
         </div>
 
-        {/* Section 2: Schedule */}
+        {/* Section 2: pricing and others */}
         <div className="collapse collapse-arrow bg-base-100">
           <input type="checkbox" />
           <div className="collapse-title font-bold text-primary text-lg">
-            2. Schedule
+            2. Pricing and Others
           </div>
           <div className="collapse-content space-y-4">
-            {/* course title */}
+            {/* price */}
             <div>
               <label className="label">
                 <span className="label-text font-semibold">
-                  Course Title <span className="text-red-500">*</span>
+                  Price <span className="text-red-500">*</span>
                 </span>
               </label>
               <input
                 type="text"
-                name="title"
-                placeholder="Enter course title"
+                name="price"
                 className="input input-bordered w-full"
+                placeholder="e.g., $25, $99"
                 required
               />
             </div>
-            {/* course description */}
+
+            {/* learning objectives */}
             <div>
               <label className="label">
                 <span className="label-text font-semibold">
-                  Short Description <span className="text-red-500">*</span>
+                  Learning Objectives <span className="text-red-500">*</span>
                 </span>
               </label>
               <textarea
-                name="description"
+                name="learningObjectives"
                 className="textarea textarea-bordered w-full resize-none"
-                placeholder="Describe what students will learn in this course..."
+                placeholder="Tell what they will learn (seperate by comma)."
                 required
               ></textarea>
             </div>
-            {/* course image */}
+            {/* prerequisites */}
             <div>
               <label className="label">
                 <span className="label-text font-semibold">
-                  Course Image URL <span className="text-red-500">*</span>
+                  Prerequisites <span className="text-red-500">*</span>
                 </span>
               </label>
-              <input
-                type="url"
-                name="imageUrl"
-                className="input input-bordered w-full"
-                placeholder="https://example.com/course-image.jpg"
+              <textarea
+                name="prerequisites"
+                className="textarea textarea-bordered w-full resize-none"
+                placeholder="What they need to know before enroll in course (seperate by comma)."
                 required
-              />
+              ></textarea>
             </div>
-            {/* duration */}
-            <div className="flex gap-4">
-              <div className="flex-1">
-                <label className="label">
-                  <span className="label-text font-semibold">
-                    Duration <span className="text-red-500">*</span>
-                  </span>
-                </label>
-                <input
-                  type="text"
-                  name="duration"
-                  className="input input-bordered w-full"
-                  placeholder="e.g., 6 weeks, 20 hours"
-                  required
-                />
-              </div>
-              {/* course level */}
-              <div className="flex-1">
-                <label className="label">
-                  <span className="label-text font-semibold">Course Level</span>
-                </label>
-                <select
-                  name="level"
-                  className="select select-bordered w-full"
-                  required
-                >
-                  <option disabled value="">
-                    Select level
-                  </option>
-                  <option>Beginner</option>
-                  <option>Intermediate</option>
-                  <option>Advanced</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Section 3: Pricing & Access */}
-        <div className="collapse collapse-arrow bg-base-100">
-          <input type="checkbox" />
-          <div className="collapse-title font-bold text-primary text-lg">
-            3. Pricing & Access
-          </div>
-          <div className="collapse-content space-y-4">
-            {/* course title */}
+            {/* benefits */}
             <div>
               <label className="label">
                 <span className="label-text font-semibold">
-                  Course Title <span className="text-red-500">*</span>
+                  Benefits From This Course{" "}
+                  <span className="text-red-500">*</span>
                 </span>
               </label>
               <input
                 type="text"
-                name="title"
-                placeholder="Enter course title"
+                name="benefits"
                 className="input input-bordered w-full"
+                placeholder="Seperate by comme (e.g., Lifetime access, Access to project datasets)."
                 required
               />
             </div>
-            {/* course description */}
-            <div>
-              <label className="label">
-                <span className="label-text font-semibold">
-                  Short Description <span className="text-red-500">*</span>
-                </span>
-              </label>
-              <textarea
-                name="description"
-                className="textarea textarea-bordered w-full resize-none"
-                placeholder="Describe what students will learn in this course..."
-                required
-              ></textarea>
-            </div>
-            {/* course image */}
-            <div>
-              <label className="label">
-                <span className="label-text font-semibold">
-                  Course Image URL <span className="text-red-500">*</span>
-                </span>
-              </label>
-              <input
-                type="url"
-                name="imageUrl"
-                className="input input-bordered w-full"
-                placeholder="https://example.com/course-image.jpg"
-                required
-              />
-            </div>
-            {/* duration */}
-            <div className="flex gap-4">
+            {/* Total seats and Tags */}
+            <div className="flex flex-col lg:flex-row gap-4">
               <div className="flex-1">
                 <label className="label">
                   <span className="label-text font-semibold">
-                    Duration <span className="text-red-500">*</span>
+                    Total Seats <span className="text-red-500">*</span>
+                  </span>
+                </label>
+                <input
+                  type="number"
+                  name="totalSeats"
+                  className="input input-bordered w-full"
+                  placeholder="Enter total number of seats"
+                  required
+                />
+              </div>
+              {/* Tags */}
+              <div className="flex-1">
+                <label className="label">
+                  <span className="label-text font-semibold">
+                    Tags <span className="text-red-500">*</span>
                   </span>
                 </label>
                 <input
                   type="text"
-                  name="duration"
+                  name="tags"
                   className="input input-bordered w-full"
-                  placeholder="e.g., 6 weeks, 20 hours"
+                  placeholder="e.g., Data Science, Intermediate, Certificate"
                   required
                 />
-              </div>
-              {/* course level */}
-              <div className="flex-1">
-                <label className="label">
-                  <span className="label-text font-semibold">Course Level</span>
-                </label>
-                <select
-                  name="level"
-                  className="select select-bordered w-full"
-                  required
-                >
-                  <option disabled value="">
-                    Select level
-                  </option>
-                  <option>Beginner</option>
-                  <option>Intermediate</option>
-                  <option>Advanced</option>
-                </select>
               </div>
             </div>
           </div>
         </div>
-
 
         {/* Submit Button */}
         <div className="">

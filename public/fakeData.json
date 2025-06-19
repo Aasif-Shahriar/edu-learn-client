@@ -1,0 +1,360 @@
+[
+  {
+    "_id": "f1a4321c-eabc-4b33-9d6e-9275d71ec2b1",
+    "title": "Machine Learning with Python",
+    "bannerImage": "https://img.freepik.com/free-photo/artificial-intelligence-concept_23-2150794037.jpg",
+    "tags": ["Machine Learning", "Advanced", "Certificate"],
+    "duration": "12 weeks",
+    "totalSeats": 25,
+    "price": "$249",
+    "description": "Dive deep into machine learning concepts and algorithms using Python. Build predictive models, evaluate performance, and apply supervised and unsupervised learning techniques in real-world projects.",
+    "learningObjectives": [
+      "Implement ML algorithms",
+      "Use Scikit-learn and TensorFlow",
+      "Build real-world models",
+      "Understand overfitting and bias"
+    ],
+    "prerequisites": [
+      "Intermediate Python",
+      "Linear algebra basics",
+      "Intro to Statistics"
+    ],
+    "benefits": [
+      "Hands-on projects",
+      "Certificate",
+      "Community support"
+    ],
+    "level": "Advanced"
+  },
+  {
+    "_id": "c91d512f-14ef-4ff4-b176-f6341b34faae",
+    "title": "Intro to Web Development",
+    "bannerImage": "https://img.freepik.com/free-photo/html-css-collage-concept_23-2150324252.jpg",
+    "tags": ["Web Development", "Beginner", "Project-Based"],
+    "duration": "8 weeks",
+    "totalSeats": 30,
+    "price": "$99",
+    "description": "Learn the basics of web development including HTML, CSS, and JavaScript. By the end, you'll have built your own personal website from scratch and learned the fundamentals of responsive design.",
+    "learningObjectives": [
+      "Build static web pages",
+      "Understand web architecture",
+      "Style with CSS",
+      "Add interactivity with JS"
+    ],
+    "prerequisites": [
+      "Basic computer usage"
+    ],
+    "benefits": [
+      "Real projects",
+      "Peer feedback",
+      "Beginner-friendly content"
+    ],
+    "level": "Beginner"
+  },
+  {
+    "_id": "aa97fe2e-34d6-47a6-8fa9-27b34bb5db8e",
+    "title": "Cybersecurity Fundamentals",
+    "bannerImage": "https://img.freepik.com/free-photo/3d-padlock-cyber-security-background_23-2150462721.jpg",
+    "tags": ["Cybersecurity", "Intermediate", "Certificate"],
+    "duration": "10 weeks",
+    "totalSeats": 20,
+    "price": "$179",
+    "description": "Gain a strong foundation in cybersecurity principles. This course covers key areas such as network security, cryptography, threat detection, and ethical hacking basics.",
+    "learningObjectives": [
+      "Understand security threats",
+      "Explore ethical hacking",
+      "Learn cryptographic techniques",
+      "Protect systems and data"
+    ],
+    "prerequisites": [
+      "Basic networking knowledge"
+    ],
+    "benefits": [
+      "Certificate",
+      "Practice labs",
+      "Career guidance"
+    ],
+    "level": "Intermediate"
+  },
+  {
+    "_id": "d15ec813-9f2d-4c7f-90f3-5c92bcf8fd74",
+    "title": "UI/UX Design Principles",
+    "bannerImage": "https://img.freepik.com/free-photo/design-creative-website-elements_23-2148811403.jpg",
+    "tags": ["Design", "Beginner", "Creative"],
+    "duration": "6 weeks",
+    "totalSeats": 35,
+    "price": "$129",
+    "description": "Understand the foundations of UI/UX design. Learn about user research, wireframing, prototyping, and usability testing using modern tools like Figma and Adobe XD.",
+    "learningObjectives": [
+      "Design user interfaces",
+      "Conduct user research",
+      "Create wireframes and mockups",
+      "Test usability and iterate"
+    ],
+    "prerequisites": [
+      "Interest in design",
+      "Basic computer skills"
+    ],
+    "benefits": [
+      "Access to design templates",
+      "Portfolio project",
+      "Certificate"
+    ],
+    "level": "Beginner"
+  },
+  {
+    "_id": "be40e0d9-462c-4aa1-b4d3-6e00bbdde6ef",
+    "title": "Python for Data Analysis",
+    "bannerImage": "https://img.freepik.com/free-photo/data-analysis-graphs_23-2148905673.jpg",
+    "tags": ["Data Science", "Intermediate", "Certificate"],
+    "duration": "10 weeks",
+    "totalSeats": 22,
+    "price": "$159",
+    "description": "Master data analysis with Python using libraries like Pandas, NumPy, and Matplotlib. Work on datasets to extract insights and visualize findings effectively.",
+    "learningObjectives": [
+      "Use Pandas for data wrangling",
+      "Perform statistical analysis",
+      "Visualize data insights",
+      "Clean and preprocess data"
+    ],
+    "prerequisites": [
+      "Basic Python",
+      "High school math"
+    ],
+    "benefits": [
+      "Data case studies",
+      "Certification",
+      "Downloadable datasets"
+    ],
+    "level": "Intermediate"
+  },
+  {
+    "_id": "f7bc26b7-139a-42f1-829c-9aef9179df0a",
+    "title": "Cloud Computing with AWS",
+    "bannerImage": "https://img.freepik.com/free-photo/servers-cloud-digital-technology_23-2149314582.jpg",
+    "tags": ["Cloud", "Advanced", "DevOps"],
+    "duration": "14 weeks",
+    "totalSeats": 18,
+    "price": "$289",
+    "description": "Build and manage scalable cloud applications using AWS. This hands-on course prepares you for cloud architecture roles, including topics like EC2, S3, Lambda, and IAM.",
+    "learningObjectives": [
+      "Understand AWS services",
+      "Deploy scalable apps",
+      "Manage cloud resources",
+      "Ensure cloud security"
+    ],
+    "prerequisites": [
+      "Basic Linux",
+      "Networking fundamentals"
+    ],
+    "benefits": [
+      "AWS sandbox",
+      "Certification prep",
+      "Expert mentorship"
+    ],
+    "level": "Advanced"
+  },
+  {
+    "_id": "a33ac251-16e2-4a55-8a4d-1797ad5457bb",
+    "title": "Agile Project Management",
+    "bannerImage": "https://img.freepik.com/free-photo/business-team-working-project_23-2149015123.jpg",
+    "tags": ["Management", "Professional", "Agile"],
+    "duration": "5 weeks",
+    "totalSeats": 28,
+    "price": "$109",
+    "description": "Master Agile principles, roles, and tools to manage software development projects. Learn about Scrum, Kanban, sprint planning, and retrospectives.",
+    "learningObjectives": [
+      "Lead agile teams",
+      "Use Jira and Trello",
+      "Track progress",
+      "Facilitate retrospectives"
+    ],
+    "prerequisites": [
+      "Teamwork experience"
+    ],
+    "benefits": [
+      "Downloadable templates",
+      "Scrum simulations",
+      "Project workbook"
+    ],
+    "level": "Professional"
+  },
+  {
+    "_id": "d3b26b17-8497-4982-872b-cc202d1a3c6f",
+    "title": "SQL for Data Professionals",
+    "bannerImage": "https://img.freepik.com/free-photo/database-digital-concept_23-2148520124.jpg",
+    "tags": ["SQL", "Beginner", "Database"],
+    "duration": "4 weeks",
+    "totalSeats": 40,
+    "price": "$89",
+    "description": "Learn how to write and optimize SQL queries for real-world databases. Understand joins, aggregations, and subqueries through hands-on labs.",
+    "learningObjectives": [
+      "Query databases",
+      "Design relational schemas",
+      "Use joins and filters",
+      "Write advanced SQL"
+    ],
+    "prerequisites": [
+      "None"
+    ],
+    "benefits": [
+      "Interactive SQL labs",
+      "Downloadable query sets",
+      "Completion badge"
+    ],
+    "level": "Beginner"
+  },
+  {
+    "_id": "cf7a2fbe-fb8f-476d-8494-38f2cf6b142d",
+    "title": "Natural Language Processing",
+    "bannerImage": "https://img.freepik.com/free-photo/chatbot-artificial-intelligence-interface_23-2149143194.jpg",
+    "tags": ["AI", "Advanced", "Text Mining"],
+    "duration": "12 weeks",
+    "totalSeats": 16,
+    "price": "$269",
+    "description": "Explore how machines understand human language. Learn text preprocessing, sentiment analysis, topic modeling, and transformer models using Python.",
+    "learningObjectives": [
+      "Clean and preprocess text",
+      "Use NLP libraries like SpaCy",
+      "Build text classifiers",
+      "Apply BERT for NLP tasks"
+    ],
+    "prerequisites": [
+      "Python proficiency",
+      "Basic ML concepts"
+    ],
+    "benefits": [
+      "Research datasets",
+      "Capstone project",
+      "Expert Q&A"
+    ],
+    "level": "Advanced"
+  },
+  {
+    "_id": "fda4597e-b79b-4123-a7b2-0cbfd447348e",
+    "title": "Intro to Game Development",
+    "bannerImage": "https://img.freepik.com/free-photo/game-controller-joystick-isolated_23-2149362191.jpg",
+    "tags": ["Game Development", "Creative", "Beginner"],
+    "duration": "8 weeks",
+    "totalSeats": 26,
+    "price": "$139",
+    "description": "Start your journey into game development with Unity. Learn the basics of C#, game physics, and building interactive game environments.",
+    "learningObjectives": [
+      "Create simple 2D games",
+      "Use Unity game engine",
+      "Understand game loops",
+      "Add animations and effects"
+    ],
+    "prerequisites": [
+      "Basic programming logic"
+    ],
+    "benefits": [
+      "Game templates",
+      "Source code access",
+      "Community events"
+    ],
+    "level": "Beginner"
+  },
+  {
+    "_id": "da127f91-4f67-4e4a-911a-1ea1e7491e3b",
+    "title": "Mobile App Development with Flutter",
+    "bannerImage": "https://img.freepik.com/free-photo/modern-interface-smartphone_23-2150199854.jpg",
+    "tags": ["Mobile", "Cross-Platform", "Intermediate"],
+    "duration": "10 weeks",
+    "totalSeats": 24,
+    "price": "$189",
+    "description": "Develop beautiful and fast mobile applications using Flutter and Dart. This course guides you through building apps that work on both Android and iOS platforms.",
+    "learningObjectives": [
+      "Build mobile UIs",
+      "Use Dart programming",
+      "Integrate APIs",
+      "Deploy apps to stores"
+    ],
+    "prerequisites": [
+      "Some programming knowledge"
+    ],
+    "benefits": [
+      "Project-based learning",
+      "Cross-platform deployment",
+      "Source code sharing"
+    ],
+    "level": "Intermediate"
+  },
+  {
+    "_id": "e8c4b79e-2f51-4783-95c7-2e673d620e0d",
+    "title": "Digital Marketing Strategy",
+    "bannerImage": "https://img.freepik.com/free-photo/social-media-marketing-concept_23-2149123537.jpg",
+    "tags": ["Marketing", "Professional", "SEO"],
+    "duration": "6 weeks",
+    "totalSeats": 35,
+    "price": "$119",
+    "description": "Learn to create, implement, and measure digital marketing campaigns. Topics include content strategy, SEO, email marketing, and Google Ads.",
+    "learningObjectives": [
+      "Develop marketing funnels",
+      "Use SEO tools",
+      "Launch ad campaigns",
+      "Analyze performance metrics"
+    ],
+    "prerequisites": [
+      "Basic marketing concepts"
+    ],
+    "benefits": [
+      "Marketing templates",
+      "Live campaign demos",
+      "Google certification prep"
+    ],
+    "level": "Professional"
+  },
+  {
+    "_id": "3f5e6df0-4464-4cb9-b8c2-41856df86fd3",
+    "title": "Ethical Hacking & Penetration Testing",
+    "bannerImage": "https://img.freepik.com/free-photo/hacker-holding-laptop-dark-room_23-2149252502.jpg",
+    "tags": ["Cybersecurity", "Advanced", "Ethical Hacking"],
+    "duration": "14 weeks",
+    "totalSeats": 20,
+    "price": "$299",
+    "description": "Learn how to ethically exploit systems to identify vulnerabilities. Gain hands-on experience with Kali Linux, Metasploit, and real-world penetration testing techniques.",
+    "learningObjectives": [
+      "Perform vulnerability assessments",
+      "Use Kali Linux tools",
+      "Conduct penetration tests",
+      "Report security risks"
+    ],
+    "prerequisites": [
+      "Networking and OS knowledge",
+      "Basic scripting"
+    ],
+    "benefits": [
+      "Practice labs",
+      "Certification readiness",
+      "Realistic simulations"
+    ],
+    "level": "Advanced"
+  },
+  {
+    "_id": "fd12767a-5c8f-48d9-86ed-56ad9d25a84e",
+    "title": "Financial Modeling & Valuation",
+    "bannerImage": "https://img.freepik.com/free-photo/financial-graph-analysis_23-2149148765.jpg",
+    "tags": ["Finance", "Professional", "Valuation"],
+    "duration": "9 weeks",
+    "totalSeats": 21,
+    "price": "$229",
+    "description": "Master the skills to build detailed financial models using Excel. Analyze company performance and perform valuations for investment decisions.",
+    "learningObjectives": [
+      "Build DCF models",
+      "Analyze financial statements",
+      "Forecast cash flows",
+      "Perform sensitivity analysis"
+    ],
+    "prerequisites": [
+      "Accounting basics",
+      "Excel skills"
+    ],
+    "benefits": [
+      "Excel templates",
+      "Case studies",
+      "Certificate of achievement"
+    ],
+    "level": "Professional"
+  }
+]

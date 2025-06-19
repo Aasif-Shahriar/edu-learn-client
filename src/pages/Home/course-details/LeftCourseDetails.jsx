@@ -1,20 +1,28 @@
 import React from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import { BsClock, BsPerson } from "react-icons/bs";
+import { MdUpdate } from "react-icons/md";
 
 const LeftCourseDetails = ({ course }) => {
   const {
     title,
-    bannerImage,
+    imageUrl,
     tags,
     instructorName,
     duration,
     totalSeats,
-    about,
+    description,
     learningObjectives,
     prerequisites,
-    whatYouWillLearn,
+    publishDate,
+    level
   } = course;
+   const date = new Date(publishDate);
+  const publishedDate = date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
 
   const getRandomColor = () => {
     const letters = "0123456789ABCDEF";
@@ -28,7 +36,7 @@ const LeftCourseDetails = ({ course }) => {
     <div className="lg:col-span-2 space-y-6">
       {/* Banner Image */}
       <img
-        src={bannerImage}
+        src={imageUrl}
         alt={`${title}_banner`}
         className="rounded-xl shadow w-full h-[300px] object-cover object-center"
       />
@@ -57,16 +65,19 @@ const LeftCourseDetails = ({ course }) => {
         <span className="flex items-center gap-1">
           <BsPerson /> {totalSeats} enrolled
         </span>
+        <span className="flex items-center">
+          <MdUpdate className="mr-1" />
+          Published: {publishedDate}
+        </span>
+        <span>
+          Level: {level}
+        </span>
       </div>
 
       {/* About Course */}
       <div className="space-y-3">
         <h2 className="text-xl font-semibold mb-2 ">About This Course</h2>
-        {about.map((data, idx) => (
-          <p key={idx} className="text-gray-700 leading-relaxed">
-            {data}
-          </p>
-        ))}
+        <p className="text-gray-700 leading-relaxed">{description}</p>
       </div>
 
       {/* Learning Objectives */}
@@ -90,19 +101,6 @@ const LeftCourseDetails = ({ course }) => {
             <li key={idx}>{data}</li>
           ))}
         </ul>
-      </div>
-
-      {/* What You'll Learn */}
-      <div>
-        <h2 className="text-xl font-semibold mb-2">What You'll Learn</h2>
-        <div className="grid md:grid-cols-2 gap-4">
-          {whatYouWillLearn.map((data, idx) => (
-            <div key={idx} className="bg-base-200 p-4 rounded-lg shadow-sm">
-              <h3 className="font-bold mb-1">{data.title}</h3>
-              <p className="text-gray-700 text-sm">{data.topics}</p>
-            </div>
-          ))}
-        </div>
       </div>
     </div>
   );

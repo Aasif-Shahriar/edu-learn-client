@@ -6,10 +6,10 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
 
 const EnrollPriceCard = ({ course }) => {
-  const { _id, benefits, price, title } = course;
+  const { _id, benefits, price, title, totalSeats } = course;
 
   const { user } = useAuth();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   console.log(`user from enrollcard ${user?.email}`);
 
@@ -29,7 +29,7 @@ const EnrollPriceCard = ({ course }) => {
             icon: "success",
             draggable: true,
           });
-          navigate('/my-enrollments')
+          navigate("/my-enrollments");
         }
       })
       .catch((err) => {
@@ -57,7 +57,7 @@ const EnrollPriceCard = ({ course }) => {
           max="10"
         ></progress>
         <div className="text-xs text-gray-500 mt-1">
-          7 out of 10 seats filled
+          7 out of {totalSeats} seats filled
         </div>
       </div>
 
