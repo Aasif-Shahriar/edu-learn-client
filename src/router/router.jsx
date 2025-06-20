@@ -39,11 +39,13 @@ const router = createBrowserRouter([
       },
       {
         path: '/manage-courses',
-        element: <PrivateRoute><ManageCourses></ManageCourses></PrivateRoute>
+        element: <PrivateRoute><ManageCourses></ManageCourses></PrivateRoute>,
+        
       },
       {
         path: '/update-course/:id',
-        element: <PrivateRoute><UpdateCourse></UpdateCourse></PrivateRoute>
+        element: <PrivateRoute><UpdateCourse></UpdateCourse></PrivateRoute>,
+        loader: ({params})=>fetch(`http://localhost:3000/courses/${params.id}`)
       },
       {
         path: "/course-details/:id",
