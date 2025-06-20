@@ -4,20 +4,21 @@ import { BsClock, BsPerson } from "react-icons/bs";
 import { MdUpdate } from "react-icons/md";
 
 const LeftCourseDetails = ({ course }) => {
+   
   const {
     title,
     imageUrl,
     tags,
     instructorName,
     duration,
-    totalSeats,
     description,
     learningObjectives,
     prerequisites,
     publishDate,
-    level
+    level,
+    enrollmentsCount,
   } = course;
-   const date = new Date(publishDate);
+  const date = new Date(publishDate);
   const publishedDate = date.toLocaleDateString("en-US", {
     month: "short",
     day: "numeric",
@@ -63,15 +64,13 @@ const LeftCourseDetails = ({ course }) => {
           <BsClock /> {duration}
         </span>
         <span className="flex items-center gap-1">
-          <BsPerson /> {totalSeats} enrolled
+          <BsPerson /> {enrollmentsCount} enrolled
         </span>
         <span className="flex items-center">
           <MdUpdate className="mr-1" />
           Published: {publishedDate}
         </span>
-        <span>
-          Level: {level}
-        </span>
+        <span>Level: {level}</span>
       </div>
 
       {/* About Course */}

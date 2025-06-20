@@ -6,9 +6,9 @@ import LeftCourseDetails from "./LeftCourseDetails";
 
 const CourseDetails = () => {
   const course = useLoaderData();
-
-  console.log(course);
   const navigate = useNavigate();
+
+
   return (
     <div className="bg-secondary min-h-screen py-10 px-4">
       <div className="max-w-7xl mx-auto ">

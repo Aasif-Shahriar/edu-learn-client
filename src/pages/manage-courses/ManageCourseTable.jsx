@@ -4,15 +4,20 @@ import { MdDelete, MdEdit } from "react-icons/md";
 import { Link } from "react-router";
 import { Tooltip } from "react-tooltip";
 import Swal from "sweetalert2";
+import Loading from "../../components/loading/Loading";
 
 const ManageCourseTable = ({ courseAddedByPromise }) => {
   const [myCourses, setMyCourses] = useState([]);
+  const[loading,setLoading]=useState(true)
 
   useEffect(() => {
     courseAddedByPromise.then((data) => {
       setMyCourses(data);
+      setLoading(false)
     });
   }, [courseAddedByPromise]);
+
+  if(loading) return <Loading></Loading>
 
   //delete operation
   const handleDeleteCourse = (id, title) => {
@@ -81,6 +86,9 @@ const ManageCourseTable = ({ courseAddedByPromise }) => {
                     Description
                   </th>
                   <th className="py-3 px-4 font-semibold text-gray-700">
+                    Enrolled Counts
+                  </th>
+                  <th className="py-3 px-4 font-semibold text-gray-700">
                     Duration
                   </th>
                   <th className="py-3 px-4 font-semibold text-gray-700">
@@ -112,6 +120,7 @@ const ManageCourseTable = ({ courseAddedByPromise }) => {
                       <td className="py-4 px-4 text-gray-700 truncate max-w-[200px]">
                         {course.description}
                       </td>
+                      <td className="py-4 px-4 text-center">{course.enrollmentsCount}</td>
                       <td className="py-4 px-4 text-primary">
                         {course.duration}
                       </td>

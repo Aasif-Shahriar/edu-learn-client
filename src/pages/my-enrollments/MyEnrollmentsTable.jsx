@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
+import Loading from "../../components/loading/Loading";
 
 const MyEnrollmentsTable = ({ myEnrollmentsPromise }) => {
   const [myEnrollments, setMyEnrollments] = useState([]);
+  const[loading,setLoading]=useState(true)
 
   console.log(`enrollments object from my-enrollment-table: ${myEnrollments}`);
 
   useEffect(() => {
     myEnrollmentsPromise.then((data) => {
       setMyEnrollments(data);
+      setLoading(false)
     });
   }, [myEnrollmentsPromise]);
+
+  if(loading) return <Loading></Loading>
 
   const handleRemoveEnrollment = (id, title) => {
     Swal.fire({
