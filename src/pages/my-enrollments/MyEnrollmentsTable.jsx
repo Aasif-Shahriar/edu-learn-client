@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
 import Loading from "../../components/loading/Loading";
+import NoEnrollmentsCard from "./NoEnrollmentsCard";
 
 const MyEnrollmentsTable = ({ myEnrollmentsPromise }) => {
   const [myEnrollments, setMyEnrollments] = useState([]);
@@ -54,9 +55,7 @@ const MyEnrollmentsTable = ({ myEnrollmentsPromise }) => {
   return (
     <div className="w-full">
       {myEnrollments.length === 0 ? (
-        <p className="text-gray-600 text-center py-4">
-          You haven't enrolled yet
-        </p>
+        <NoEnrollmentsCard></NoEnrollmentsCard>
       ) : (
         <>
           {/* Desktop/tablet table view */}

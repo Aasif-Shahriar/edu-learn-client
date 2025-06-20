@@ -5,19 +5,20 @@ import { Link } from "react-router";
 import { Tooltip } from "react-tooltip";
 import Swal from "sweetalert2";
 import Loading from "../../components/loading/Loading";
+import NoCoursesAddedCard from "./NoAddedCoursesCard";
 
 const ManageCourseTable = ({ courseAddedByPromise }) => {
   const [myCourses, setMyCourses] = useState([]);
-  const[loading,setLoading]=useState(true)
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     courseAddedByPromise.then((data) => {
       setMyCourses(data);
-      setLoading(false)
+      setLoading(false);
     });
   }, [courseAddedByPromise]);
 
-  if(loading) return <Loading></Loading>
+  if (loading) return <Loading></Loading>;
 
   //delete operation
   const handleDeleteCourse = (id, title) => {
@@ -58,9 +59,7 @@ const ManageCourseTable = ({ courseAddedByPromise }) => {
   return (
     <div className="w-full">
       {myCourses.length === 0 ? (
-        <p className="text-gray-600 text-center py-4">
-          You haven't added course yet
-        </p>
+        <NoCoursesAddedCard />
       ) : (
         <>
           <div className="min-w-full mb-1 bg-white border border-gray-200 text-sm sm:text-base p-3 flex items-center justify-between">
@@ -120,7 +119,13 @@ const ManageCourseTable = ({ courseAddedByPromise }) => {
                       <td className="py-4 px-4 text-gray-700 truncate max-w-[200px]">
                         {course.description}
                       </td>
-                      <td className="py-4 px-4 text-center">{course.enrollmentsCount}</td>
+                      <td className="py-4 px-4">
+                        {course.enrollmentsCount}{" "}
+                        {course.enrollmentsCount == 1
+                          ? "person has"
+                          : "people have"}{" "}
+                        enrolled
+                      </td>
                       <td className="py-4 px-4 text-primary">
                         {course.duration}
                       </td>
@@ -190,6 +195,15 @@ const ManageCourseTable = ({ courseAddedByPromise }) => {
                     <p>
                       <span className="font-medium">Created:</span>{" "}
                       {formattedDate}
+                    </p>
+                   
+                    <p>
+                      <span className="font-medium">Enrolled Count:</span>{" "}
+                      {course.enrollmentsCount}{" "}
+                      {course.enrollmentsCount == 1
+                        ? "person has"
+                        : "people have"}{" "}
+                      enrolled
                     </p>
                   </div>
                   {/* action */}
