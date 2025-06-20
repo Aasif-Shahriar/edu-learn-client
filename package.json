@@ -28,6 +28,7 @@
     "react-tooltip": "^5.29.0",
     "slick-carousel": "^1.8.1",
     "sweetalert2": "^11.22.0",
+    "swiper": "^11.2.8",
     "tailwindcss": "^4.1.8"
   },
   "devDependencies": {

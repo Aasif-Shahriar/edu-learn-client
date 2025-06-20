@@ -4,6 +4,7 @@ import Service from "./services/Service";
 import FeaturedCourses from "./featured-courses/FeaturedCourses";
 import BrowseCategories from "./browse-top-categories/BrowseCategories";
 import ExtraSection from "./extra-section/ExtraSection";
+import PopularCourses from "./popular-courses-section/PopularCourses";
 
 const Home = () => {
 
@@ -18,9 +19,13 @@ const Home = () => {
       <div className="max-w-7xl mx-auto px-4">
         <Service></Service>
       </div>
-      {/* featured courses */}
+      {/* Lates courses */}
       <div className="bg-secondary">
         <FeaturedCourses></FeaturedCourses>
+      </div>
+      {/* popular courses */}
+      <div className="bg-primary/10">
+        <PopularCourses></PopularCourses>
       </div>
       {/* browse top categories */}
       <div className="bg-white py-10">

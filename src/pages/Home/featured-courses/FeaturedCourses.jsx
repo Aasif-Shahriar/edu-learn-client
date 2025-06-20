@@ -62,8 +62,8 @@ const FeaturedCourses = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10 relative">
-      <h2 className="text-3xl font-bold mb-4">Featured Courses</h2>
-      <p>Explore our most popular and highly-rated courses</p>
+      <h2 className="text-3xl font-bold mb-4">Latest Courses</h2>
+      <p>Explore the newly added courses.</p>
 
       <div className="slider-container">
         <Slider {...settings}>
