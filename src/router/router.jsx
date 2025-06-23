@@ -30,22 +30,30 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      
-        {
-        path: '/courses',
+
+      {
+        path: "/courses",
         Component: Courses,
-        loader: ()=>fetch('https://edu-learn-server-jwt.vercel.app/courses'),
-        hydrateFallbackElement: <Loading></Loading>
+        loader: () => fetch("https://edu-learn-server-jwt.vercel.app/courses"),
+        hydrateFallbackElement: <Loading></Loading>,
       },
       {
-        path: '/manage-courses',
-        element: <PrivateRoute><ManageCourses></ManageCourses></PrivateRoute>,
-        
+        path: "/manage-courses",
+        element: (
+          <PrivateRoute>
+            <ManageCourses></ManageCourses>
+          </PrivateRoute>
+        ),
       },
       {
-        path: '/update-course/:id',
-        element: <PrivateRoute><UpdateCourse></UpdateCourse></PrivateRoute>,
-        loader: ({params})=>fetch(`https://edu-learn-server-jwt.vercel.app/courses/${params.id}`)
+        path: "/update-course/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateCourse></UpdateCourse>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`https://edu-learn-server-jwt.vercel.app/courses/${params.id}`),
       },
       {
         path: "/course-details/:id",
@@ -63,13 +71,17 @@ const router = createBrowserRouter([
         Component: SignUp,
       },
       {
-        path: '/courses',
-        Component: Courses
+        path: "/courses",
+        Component: Courses,
       },
       {
-        path:'/my-enrollments',
-        element: <PrivateRoute><MyEnrollments></MyEnrollments></PrivateRoute>
-      }
+        path: "/my-enrollments",
+        element: (
+          <PrivateRoute>
+            <MyEnrollments></MyEnrollments>
+          </PrivateRoute>
+        ),
+      },
     ],
   },
   {
