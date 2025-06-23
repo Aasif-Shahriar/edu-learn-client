@@ -20,7 +20,7 @@ const EnrollPriceCard = ({ course }) => {
     };
 
     axios
-      .post("http://localhost:3000/enrollments", enrollment)
+      .post("https://edu-learn-server-jwt.vercel.app/enrollments", enrollment)
       .then((res) => {
         console.log(res.data);
         if (res.data.insertedId) {

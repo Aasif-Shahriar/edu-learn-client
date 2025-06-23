@@ -43,7 +43,7 @@ const UpdateCourseForm = () => {
     console.log(updateCourse);
 
     axios
-      .put(`http://localhost:3000/courses/${_id}`, updateCourse)
+      .put(`https://edu-learn-server-jwt.vercel.app/courses/${_id}`, updateCourse)
       .then((res) => {
         if (res.data.modifiedCount) {
           Swal.fire({

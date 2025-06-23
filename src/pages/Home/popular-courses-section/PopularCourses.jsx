@@ -18,7 +18,7 @@ const PopularCourses = () => {
   const nextRef = useRef(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/courses/popular")
+    fetch("https://edu-learn-server-jwt.vercel.app/courses/popular")
       .then((res) => res.json())
       .then((data) => {
         setPopularCourses(data);
@@ -52,7 +52,7 @@ const PopularCourses = () => {
           slidesPerView={3}
           spaceBetween={30}
           loop={true}
-          pagination={{ clickable: true }}
+          
           navigation={{
             prevEl: prevRef.current,
             nextEl: nextRef.current,

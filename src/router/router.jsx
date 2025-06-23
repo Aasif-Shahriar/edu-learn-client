@@ -34,7 +34,7 @@ const router = createBrowserRouter([
         {
         path: '/courses',
         Component: Courses,
-        loader: ()=>fetch('http://localhost:3000/courses'),
+        loader: ()=>fetch('https://edu-learn-server-jwt.vercel.app/courses'),
         hydrateFallbackElement: <Loading></Loading>
       },
       {
@@ -45,13 +45,13 @@ const router = createBrowserRouter([
       {
         path: '/update-course/:id',
         element: <PrivateRoute><UpdateCourse></UpdateCourse></PrivateRoute>,
-        loader: ({params})=>fetch(`http://localhost:3000/courses/${params.id}`)
+        loader: ({params})=>fetch(`https://edu-learn-server-jwt.vercel.app/courses/${params.id}`)
       },
       {
         path: "/course-details/:id",
         element: <CourseDetails></CourseDetails>,
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/courses/${params.id}`),
+          fetch(`https://edu-learn-server-jwt.vercel.app/courses/${params.id}`),
         hydrateFallbackElement: <Loading></Loading>,
       },
       {

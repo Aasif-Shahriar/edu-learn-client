@@ -13,7 +13,7 @@ const FeaturedCourses = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:3000/courses/latest")
+    fetch("https://edu-learn-server-jwt.vercel.app/courses/latest")
       .then((res) => res.json())
       .then((data) => {
         setCourses(data);
