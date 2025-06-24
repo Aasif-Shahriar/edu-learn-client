@@ -47,13 +47,13 @@ const router = createBrowserRouter([
       },
       {
         path: "/update-course/:id",
+        loader: ({ params }) =>
+          fetch(`https://edu-learn-server-jwt.vercel.app/course/${params.id}`),
         element: (
           <PrivateRoute>
             <UpdateCourse></UpdateCourse>
           </PrivateRoute>
         ),
-        loader: ({ params }) =>
-          fetch(`https://edu-learn-server-jwt.vercel.app/courses/${params.id}`),
       },
       {
         path: "/course-details/:id",

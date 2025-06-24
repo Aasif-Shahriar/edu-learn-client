@@ -43,7 +43,10 @@ const UpdateCourseForm = () => {
     console.log(updateCourse);
 
     axios
-      .put(`https://edu-learn-server-jwt.vercel.app/courses/${_id}`, updateCourse)
+      .put(
+        `https://edu-learn-server-jwt.vercel.app/course/${_id}`,
+        updateCourse
+      )
       .then((res) => {
         if (res.data.modifiedCount) {
           Swal.fire({
@@ -283,7 +286,7 @@ const UpdateCourseForm = () => {
         {/* Submit Button */}
         <div className="">
           <button type="submit" className="btn btn-primary w-full">
-            Create Course
+            Update Course
           </button>
         </div>
       </div>
