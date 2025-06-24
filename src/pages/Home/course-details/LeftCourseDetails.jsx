@@ -16,7 +16,7 @@ const LeftCourseDetails = ({ course }) => {
     prerequisites,
     publishDate,
     level,
-    enrollmentsCount,
+    enrolledCount,
   } = course;
   const date = new Date(publishDate);
   const publishedDate = date.toLocaleDateString("en-US", {
@@ -64,7 +64,7 @@ const LeftCourseDetails = ({ course }) => {
           <BsClock /> {duration}
         </span>
         <span className="flex items-center gap-1">
-          <BsPerson /> {enrollmentsCount} enrolled
+          <BsPerson /> {enrolledCount} enrolled
         </span>
         <span className="flex items-center">
           <MdUpdate className="mr-1" />

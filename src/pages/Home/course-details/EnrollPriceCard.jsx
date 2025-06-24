@@ -1,46 +1,64 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import useAuth from "../../../hooks/useAuth";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router";
 
 const EnrollPriceCard = ({ course }) => {
-  const { _id, benefits, price, title, totalSeats } = course;
-
+  const { _id, benefits, price, totalSeats, enrolledCount, title } = course;
   const { user } = useAuth();
-  const navigate = useNavigate();
 
-  console.log(`user from enrollcard ${user?.email}`);
+  const [enrolled, setEnrolled] = useState(enrolledCount);
+  const [seatsLeft, setSeatsLeft] = useState(totalSeats - enrolledCount);
+  const [isEnrolled, setIsEnrolled] = useState(false);
+  const [enrollmentId, setEnrollmentId] = useState(null);
 
-  const handleEnroll = () => {
-    const enrollment = {
-      courseId: _id,
-      student: user.email,
-    };
-
+  //  Check if user already enrolled
+  useEffect(() => {
+    if (!user) return;
     axios
-      .post("https://edu-learn-server-jwt.vercel.app/enrollments", enrollment)
-      .then((res) => {
-        console.log(res.data);
-        if (res.data.insertedId) {
-          Swal.fire({
-            title: `Your enrollment to "${title}" course has been successful👏`,
-            icon: "success",
-            draggable: true,
-          });
-          navigate("/my-enrollments");
-        }
+      .get("http://localhost:3000/enrollments/check", {
+        params: { courseId: _id, email: user.email },
       })
-      .catch((err) => {
-        console.log(err);
+      .then((res) => {
+        if (res.data.enrolled) {
+          setIsEnrolled(true);
+          setEnrollmentId(res.data.enrollmentId);
+        }
+      });
+  }, [user, _id]);
+
+  //  Handle enroll and unenroll
+  const handleToggleEnrollment = async () => {
+    if (!user) return;
+
+    if (isEnrolled) {
+      // Unenroll
+      await axios.delete(`http://localhost:3000/enrollments/${enrollmentId}`);
+      setIsEnrolled(false);
+      setEnrollmentId(null);
+      setEnrolled((prev) => prev - 1);
+      setSeatsLeft((prev) => prev + 1);
+      Swal.fire("Unenrolled!", `from "${title}"`, "info");
+    } else {
+      // Enroll
+      const res = await axios.post("http://localhost:3000/enrollments", {
+        courseId: _id,
+        student: user.email,
       });
 
-    console.log(enrollment);
+      if (res.data.insertedId) {
+        setIsEnrolled(true);
+        setEnrolled((prev) => prev + 1);
+        setSeatsLeft((prev) => prev - 1);
+        setEnrollmentId(res.data.insertedId);
+        Swal.fire("Enrolled!", `in "${title}"`, "success");
+      }
+    }
   };
 
   return (
-    <div className="bg-white  rounded-xl shadow-lg p-6 border border-gray-100 self-start">
+    <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100 self-start">
       <div className="text-3xl text-center font-semibold text-gray-800">
         {price}
       </div>
@@ -49,32 +67,38 @@ const EnrollPriceCard = ({ course }) => {
       <div className="mt-6">
         <div className="flex justify-between text-sm font-medium text-gray-700 mb-1">
           <span>Available Seats</span>
-          <span className="text-green-600 font-semibold">3 left</span>
+          <span className="text-green-600 font-semibold">{seatsLeft}</span>
         </div>
         <progress
           className="progress progress-success w-full h-3"
-          value="7"
-          max="10"
+          value={enrolled}
+          max={totalSeats}
         ></progress>
         <div className="text-xs text-gray-500 mt-1">
-          7 out of {totalSeats} seats filled
+          {enrolled} out of {totalSeats} seats filled
         </div>
       </div>
 
-      {/* Enroll button */}
+      {/* Enroll / Unenroll button */}
       <button
-        disabled={!user}
-        onClick={handleEnroll}
+        disabled={!user || seatsLeft === 0}
+        onClick={handleToggleEnrollment}
         className="btn btn-primary w-full mt-6"
       >
-        {!user ? "Login To Enroll" : "Enroll Now"}
+        {!user
+          ? "Login to Enroll"
+          : seatsLeft === 0 && !isEnrolled
+          ? "No Seats Left"
+          : isEnrolled
+          ? "Unenroll"
+          : "Enroll Now"}
       </button>
 
       <ul className="text-sm text-gray-700 mt-6 space-y-2">
-        {benefits.map((data, idx) => (
+        {benefits.map((item, idx) => (
           <li key={idx} className="flex items-center">
             <FaCheckCircle className="text-green-500 mr-2" />
-            {data}
+            {item}
           </li>
         ))}
       </ul>

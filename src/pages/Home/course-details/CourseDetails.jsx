@@ -6,6 +6,7 @@ import LeftCourseDetails from "./LeftCourseDetails";
 
 const CourseDetails = () => {
   const course = useLoaderData();
+  console.log(course);
   const navigate = useNavigate();
 
 
