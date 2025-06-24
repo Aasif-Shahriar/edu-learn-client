@@ -18,7 +18,7 @@ const PopularCourses = () => {
   const nextRef = useRef(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/all/popular")
+    fetch("http://localhost:3000/popular")
       .then((res) => res.json())
       .then((data) => {
         setPopularCourses(data);

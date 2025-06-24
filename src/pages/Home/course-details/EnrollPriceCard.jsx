@@ -13,6 +13,8 @@ const EnrollPriceCard = ({ course }) => {
   const [isEnrolled, setIsEnrolled] = useState(false);
   const [enrollmentId, setEnrollmentId] = useState(null);
 
+  console.log(enrolled);
+
   //  Check if user already enrolled
   useEffect(() => {
     if (!user) return;

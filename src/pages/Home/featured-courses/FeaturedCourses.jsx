@@ -14,7 +14,7 @@ const FeaturedCourses = () => {
 
   // http://localhost:3000/
   useEffect(() => {
-    fetch("http://localhost:3000/course/latest")
+    fetch("http://localhost:3000/latest")
       .then((res) => res.json())
       .then((data) => {
         setCourses(data);
