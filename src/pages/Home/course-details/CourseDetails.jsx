@@ -29,7 +29,7 @@ const CourseDetails = () => {
           <EnrollPriceCard course={course}></EnrollPriceCard>
         </div>
       </div>
-      <title>Course Details - EduLearn</title>
+      <title>Details - EduLearn</title>
     </div>
   );
 };

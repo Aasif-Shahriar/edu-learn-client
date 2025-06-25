@@ -5,8 +5,8 @@ import { MdEmail } from "react-icons/md";
 import { PiEyesFill } from "react-icons/pi";
 import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../provider/AuthContext";
-import { toast } from "react-toastify";
 import SocialLogin from "./SocialLogin";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const { signIn } = useContext(AuthContext);
@@ -33,7 +33,7 @@ const Login = () => {
       })
       .catch((error) => {
         console.log(error);
-        toast.error("Something went wrong!😤");
+        toast.error(`${error.message}`);
       });
   };
 

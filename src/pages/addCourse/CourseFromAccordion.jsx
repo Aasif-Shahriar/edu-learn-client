@@ -94,7 +94,7 @@ const CourseFromAccordion = () => {
             <div>
               <label className="label">
                 <span className="label-text font-semibold">
-                  Course Field Image URL <span className="text-red-500">*</span>
+                  Course Image URL <span className="text-red-500">*</span>
                 </span>
               </label>
               <input
@@ -162,7 +162,7 @@ const CourseFromAccordion = () => {
                   type="text"
                   name="price"
                   className="input input-bordered w-full"
-                  placeholder="e.g., $25, $99"
+                  placeholder="Course price"
                   required
                 />
               </div>

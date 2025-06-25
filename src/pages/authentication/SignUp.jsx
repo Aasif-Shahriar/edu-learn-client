@@ -2,15 +2,14 @@ import React, { useState } from "react";
 import { useContext } from "react";
 import { BiSolidLockAlt } from "react-icons/bi";
 import { FaEyeSlash, FaUser } from "react-icons/fa";
-
 import { MdEmail, MdInsertPhoto } from "react-icons/md";
 import { PiEyesFill } from "react-icons/pi";
 import { Link, useLocation, useNavigate } from "react-router";
-import { toast } from "react-toastify";
 import { AuthContext } from "../../provider/AuthContext";
 import { updateProfile } from "firebase/auth";
 import { auth } from "../../firebase/firebase.init";
 import SocialLogin from "./SocialLogin";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
   const { createUser, setUser,setLoading } = useContext(AuthContext);

@@ -93,22 +93,22 @@ const EnrollPriceCard = ({ course }) => {
   return (
     <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100 self-start">
       <div className="text-3xl text-center font-semibold text-gray-800">
-        {price}
+        ${price}
       </div>
       <div className="text-sm text-center mt-2 text-gray-500">Full Access</div>
 
       <div className="mt-6">
         <div className="flex justify-between text-sm font-medium text-gray-700 mb-1">
           <span>Available Seats</span>
-          <span className="text-green-600 font-semibold">{seatsLeft}</span>
+          <span className="text-green-600 font-semibold">{seatsLeft || totalSeats}</span>
         </div>
         <progress
           className="progress progress-success w-full h-3"
-          value={enrolled}
+          value={enrolled || 0}
           max={totalSeats}
         ></progress>
         <div className="text-xs text-gray-500 mt-1">
-          {enrolled} out of {totalSeats} seats filled
+          {enrolled || 0} out of {totalSeats} seats filled
         </div>
       </div>
 

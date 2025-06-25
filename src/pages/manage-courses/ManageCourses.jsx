@@ -22,7 +22,7 @@ const ManageCourses = () => {
           </Suspense>
         </div>
       </div>
-      <title>My Enrollments - EduLearn</title>
+      <title>My Courses - EduLearn</title>
     </div>
   );
 };
