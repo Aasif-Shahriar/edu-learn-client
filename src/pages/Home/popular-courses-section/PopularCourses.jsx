@@ -14,11 +14,13 @@ const PopularCourses = () => {
   const [popularCourses, setPopularCourses] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  console.log(popularCourses);
+
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
   useEffect(() => {
-    fetch("https://edu-learn-server-jwt.vercel.app/popular")
+    fetch("http://localhost:3000/popular")
       .then((res) => res.json())
       .then((data) => {
         setPopularCourses(data);

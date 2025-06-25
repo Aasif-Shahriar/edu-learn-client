@@ -19,7 +19,7 @@ const EnrollPriceCard = ({ course }) => {
   useEffect(() => {
     if (!user) return;
     axios
-      .get("https://edu-learn-server-jwt.vercel.app/enrollments/check", {
+      .get("http://localhost:3000/enrollments/check", {
         params: { courseId: _id, email: user.email },
       })
       .then((res) => {
@@ -36,7 +36,7 @@ const EnrollPriceCard = ({ course }) => {
 
     if (isEnrolled) {
       // Unenroll
-      await axios.delete(`https://edu-learn-server-jwt.vercel.app/enrollments/${enrollmentId}`);
+      await axios.delete(`http://localhost:3000/enrollments/${enrollmentId}`);
       setIsEnrolled(false);
       setEnrollmentId(null);
       setEnrolled((prev) => prev - 1);
@@ -44,7 +44,7 @@ const EnrollPriceCard = ({ course }) => {
       Swal.fire("Unenrolled!", `from "${title}"`, "info");
     } else {
       // Enroll
-      const res = await axios.post("https://edu-learn-server-jwt.vercel.app/enrollments", {
+      const res = await axios.post("http://localhost:3000/enrollments", {
         courseId: _id,
         student: user.email,
       });

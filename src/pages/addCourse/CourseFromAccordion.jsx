@@ -35,7 +35,7 @@ const CourseFromAccordion = () => {
     console.log(newCourse);
 
     axios
-      .post("https://edu-learn-server-jwt.vercel.app/courses", newCourse)
+      .post("http://localhost:3000/courses", newCourse)
       .then((res) => {
         console.log(res.data);
         if (res.data.insertedId) {

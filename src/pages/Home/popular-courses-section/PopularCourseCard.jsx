@@ -1,7 +1,7 @@
 import React from "react";
 import { FaClock, FaSignal } from "react-icons/fa";
 import { IoMdPricetag } from "react-icons/io";
-import { MdUpdate } from "react-icons/md";
+import { PiStudentBold } from "react-icons/pi";
 import { Link } from "react-router";
 
 const PopularCourseCard = ({ course }) => {
@@ -14,7 +14,7 @@ const PopularCourseCard = ({ course }) => {
     price,
     duration,
     level,
-    publishedDate,
+    enrolledCount
   } = course;
 
   return (
@@ -68,8 +68,8 @@ const PopularCourseCard = ({ course }) => {
               {level}
             </span>
             <span className="flex items-center">
-              <MdUpdate className="mr-1" />
-              {publishedDate}
+              <PiStudentBold className="mr-1" />
+              {enrolledCount} Enrolled
             </span>
           </div>
 
