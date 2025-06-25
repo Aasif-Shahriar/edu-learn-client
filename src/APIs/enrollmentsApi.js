@@ -1,3 +1,3 @@
 export const myEnrollmentsPromise = (email) => {
-  return fetch(`http://localhost:3000/enrollments?email=${email}`).then((res) => res.json());
+  return fetch(`https://edu-learn-server-jwt.vercel.app/enrollments?email=${email}`).then((res) => res.json());
 };

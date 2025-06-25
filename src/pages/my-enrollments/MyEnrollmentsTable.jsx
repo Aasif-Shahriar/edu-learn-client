@@ -31,7 +31,7 @@ const MyEnrollmentsTable = ({ myEnrollmentsPromise }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:3000/enrollments/${id}`)
+          .delete(`https://edu-learn-server-jwt.vercel.app/enrollments/${id}`)
           .then((res) => {
             if (res.data.deletedCount) {
               const remainingEnrollments = myEnrollments.filter(

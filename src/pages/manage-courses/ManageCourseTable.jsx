@@ -33,7 +33,7 @@ const ManageCourseTable = ({ courseAddedByPromise }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:3000/course/${id}`)
+          .delete(`https://edu-learn-server-jwt.vercel.app/course/${id}`)
           .then((res) => {
             console.log(res.data);
             if (res.data.deletedCount) {

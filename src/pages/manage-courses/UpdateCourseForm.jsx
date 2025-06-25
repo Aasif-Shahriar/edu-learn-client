@@ -44,7 +44,7 @@ const UpdateCourseForm = () => {
 
     axios
       .put(
-        `http://localhost:3000/course/${_id}`,
+        `https://edu-learn-server-jwt.vercel.app/course/${_id}`,
         updateCourse
       )
       .then((res) => {
