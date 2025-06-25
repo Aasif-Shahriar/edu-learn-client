@@ -15,7 +15,7 @@ const EnrollPriceCard = ({ course }) => {
 
   console.log(enrolled);
 
-  //  Check if user already enrolled
+  //  Checking if user already enrolled
   useEffect(() => {
     if (!user) return;
     axios
@@ -34,28 +34,59 @@ const EnrollPriceCard = ({ course }) => {
   const handleToggleEnrollment = async () => {
     if (!user) return;
 
-    if (isEnrolled) {
-      // Unenroll
-      await axios.delete(`https://edu-learn-server-jwt.vercel.app/enrollments/${enrollmentId}`);
-      setIsEnrolled(false);
-      setEnrollmentId(null);
-      setEnrolled((prev) => prev - 1);
-      setSeatsLeft((prev) => prev + 1);
-      Swal.fire("Unenrolled!", `from "${title}"`, "info");
-    } else {
-      // Enroll
-      const res = await axios.post("https://edu-learn-server-jwt.vercel.app/enrollments", {
-        courseId: _id,
-        student: user.email,
-      });
+    try {
+      if (isEnrolled) {
+        // first Unenroll the user
+        await axios.delete(
+          `https://edu-learn-server-jwt.vercel.app/enrollments/${enrollmentId}`
+        );
+        setIsEnrolled(false);
+        setEnrollmentId(null);
+        setEnrolled((prev) => prev - 1);
+        setSeatsLeft((prev) => prev + 1);
+        Swal.fire("Unenrolled!", `from "${title}"`, "info");
+      } else {
+        //  Checking if user has already enrolled in 3 courses
+        const { data } = await axios.get(
+          `https://edu-learn-server-jwt.vercel.app/enrollments/count`,
+          {
+            params: { email: user.email },
+          }
+        );
 
-      if (res.data.insertedId) {
-        setIsEnrolled(true);
-        setEnrolled((prev) => prev + 1);
-        setSeatsLeft((prev) => prev - 1);
-        setEnrollmentId(res.data.insertedId);
-        Swal.fire("Enrolled!", `in "${title}"`, "success");
+        if (data.count >= 3) {
+          Swal.fire(
+            "Limit Reached!",
+            "You can't enroll in more than 3 courses at a time.",
+            "warning"
+          );
+          return;
+        }
+
+        // ✅ Step 2: Proceed to Enroll
+        const res = await axios.post(
+          `https://edu-learn-server-jwt.vercel.app/enrollments`,
+          {
+            courseId: _id,
+            student: user.email,
+          }
+        );
+
+        if (res.data.insertedId) {
+          setIsEnrolled(true);
+          setEnrolled((prev) => prev + 1);
+          setSeatsLeft((prev) => prev - 1);
+          setEnrollmentId(res.data.insertedId);
+          Swal.fire("Enrolled!", `in "${title}"`, "success");
+        }
       }
+    } catch (err) {
+      Swal.fire(
+        "Error",
+        err.response?.data?.message || "Something went wrong",
+        "error"
+      );
+      console.error(err);
     }
   };
 
