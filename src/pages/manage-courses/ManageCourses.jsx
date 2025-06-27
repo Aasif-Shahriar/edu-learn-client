@@ -17,7 +17,7 @@ const ManageCourses = () => {
         <div>
           <Suspense fallback={<Loading></Loading>}>
             <ManageCourseTable
-              courseAddedByPromise={courseAddedByPromise(user?.email)}
+              courseAddedByPromise={courseAddedByPromise(user?.email,user.accessToken)}
             ></ManageCourseTable>
           </Suspense>
         </div>

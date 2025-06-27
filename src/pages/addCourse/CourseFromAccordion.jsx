@@ -35,7 +35,7 @@ const CourseFromAccordion = () => {
     console.log(newCourse);
 
     axios
-      .post("https://edu-learn-server-jwt.vercel.app/courses", newCourse)
+      .post(`${import.meta.env.VITE_API_URL}/courses`, newCourse)
       .then((res) => {
         console.log(res.data);
         if (res.data.insertedId) {

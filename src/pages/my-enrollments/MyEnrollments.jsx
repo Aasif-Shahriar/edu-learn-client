@@ -2,13 +2,12 @@ import React, { Suspense } from "react";
 import MyEnrollmentsTable from "./MyEnrollmentsTable";
 import Loading from "../../components/loading/Loading";
 import useAuth from "../../hooks/useAuth";
-import { myEnrollmentsPromise } from "../../APIs/enrollmentsApi";
-
-
+import useSharedApi from "../../APIs/useSharedApi";
 
 const MyEnrollments = () => {
   const { user } = useAuth();
-  console.log(`user from my-enrollments-page: ${user.email}`);
+  const { myEnrollmentsPromise } = useSharedApi();
+  // console.log(`user from my-enrollments-page: ${user.email}`);
   return (
     <div className="bg-secondary min-h-[calc(100vh-64px)] py-10">
       <div className="max-w-7xl mx-auto px-4">
@@ -19,7 +18,9 @@ const MyEnrollments = () => {
         {/* table */}
         <div>
           <Suspense fallback={<Loading></Loading>}>
-            <MyEnrollmentsTable myEnrollmentsPromise={myEnrollmentsPromise(user?.email)}></MyEnrollmentsTable>
+            <MyEnrollmentsTable
+              myEnrollmentsPromise={myEnrollmentsPromise(user?.email)}
+            ></MyEnrollmentsTable>
           </Suspense>
         </div>
       </div>

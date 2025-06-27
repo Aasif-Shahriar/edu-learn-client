@@ -4,7 +4,7 @@ import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { auth } from "../../firebase/firebase.init";
 import { useLocation, useNavigate } from "react-router";
-import toast from "react-hot-toast";
+import { toast } from "react-toastify";
 
 const googleProvider = new GoogleAuthProvider();
 const gitHubProvider = new GithubAuthProvider();

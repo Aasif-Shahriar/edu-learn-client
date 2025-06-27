@@ -1,5 +1,10 @@
-export const courseAddedByPromise = (email) => {
-  return fetch(`https://edu-learn-server-jwt.vercel.app/courses/enrollments?email=${email}`).then((res) =>
-    res.json()
-  );
+export const courseAddedByPromise = (email, accessToken) => {
+  return fetch(
+    `${import.meta.env.VITE_API_URL}/courses/enrollments?email=${email}`,
+    {
+      headers: {
+        authorization: `Bearer ${accessToken}`,
+      },
+    }
+  ).then((res) => res.json());
 };

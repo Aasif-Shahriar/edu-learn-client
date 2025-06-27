@@ -19,7 +19,7 @@ const EnrollPriceCard = ({ course }) => {
   useEffect(() => {
     if (!user) return;
     axios
-      .get("https://edu-learn-server-jwt.vercel.app/enrollments/check", {
+      .get(`${import.meta.env.VITE_API_URL}/enrollments/check`, {
         params: { courseId: _id, email: user.email },
       })
       .then((res) => {
@@ -38,7 +38,7 @@ const EnrollPriceCard = ({ course }) => {
       if (isEnrolled) {
         // first Unenroll the user
         await axios.delete(
-          `https://edu-learn-server-jwt.vercel.app/enrollments/${enrollmentId}`
+          `${import.meta.env.VITE_API_URL}/enrollments/${enrollmentId}`
         );
         setIsEnrolled(false);
         setEnrollmentId(null);
@@ -48,7 +48,7 @@ const EnrollPriceCard = ({ course }) => {
       } else {
         //  Checking if user has already enrolled in 3 courses
         const { data } = await axios.get(
-          `https://edu-learn-server-jwt.vercel.app/enrollments/count`,
+          `${import.meta.env.VITE_API_URL}/enrollments/count`,
           {
             params: { email: user.email },
           }
@@ -65,7 +65,7 @@ const EnrollPriceCard = ({ course }) => {
 
         // ✅ Step 2: Proceed to Enroll
         const res = await axios.post(
-          `https://edu-learn-server-jwt.vercel.app/enrollments`,
+          `${import.meta.env.VITE_API_URL}/enrollments`,
           {
             courseId: _id,
             student: user.email,

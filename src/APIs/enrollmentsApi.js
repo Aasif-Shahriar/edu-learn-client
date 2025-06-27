@@ -1,3 +1,7 @@
-export const myEnrollmentsPromise = (email) => {
-  return fetch(`https://edu-learn-server-jwt.vercel.app/enrollments?email=${email}`).then((res) => res.json());
+export const myEnrollmentsPromise = (email, accessToken) => {
+  return fetch(`${import.meta.env.VITE_API_URL}/enrollments?email=${email}`, {
+    headers: {
+      authorization: `Bearer ${accessToken}`,
+    },
+  }).then((res) => res.json());
 };

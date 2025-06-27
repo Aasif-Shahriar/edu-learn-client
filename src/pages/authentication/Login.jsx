@@ -6,7 +6,7 @@ import { PiEyesFill } from "react-icons/pi";
 import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../provider/AuthContext";
 import SocialLogin from "./SocialLogin";
-import toast from "react-hot-toast";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const { signIn } = useContext(AuthContext);

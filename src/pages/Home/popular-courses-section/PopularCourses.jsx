@@ -20,7 +20,7 @@ const PopularCourses = () => {
   const nextRef = useRef(null);
 
   useEffect(() => {
-    fetch("https://edu-learn-server-jwt.vercel.app/popular")
+    fetch(`${import.meta.env.VITE_API_URL}/popular`)
       .then((res) => res.json())
       .then((data) => {
         setPopularCourses(data);

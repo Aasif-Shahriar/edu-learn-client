@@ -44,7 +44,7 @@ const UpdateCourseForm = () => {
 
     axios
       .put(
-        `https://edu-learn-server-jwt.vercel.app/course/${_id}`,
+        `${import.meta.env.VITE_API_URL}/course/${_id}`,
         updateCourse
       )
       .then((res) => {

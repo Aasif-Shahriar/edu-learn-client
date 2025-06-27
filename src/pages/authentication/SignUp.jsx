@@ -9,7 +9,7 @@ import { AuthContext } from "../../provider/AuthContext";
 import { updateProfile } from "firebase/auth";
 import { auth } from "../../firebase/firebase.init";
 import SocialLogin from "./SocialLogin";
-import toast from "react-hot-toast";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
   const { createUser, setUser,setLoading } = useContext(AuthContext);
