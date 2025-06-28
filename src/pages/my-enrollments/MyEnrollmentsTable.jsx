@@ -31,7 +31,7 @@ const MyEnrollmentsTable = ({ myEnrollmentsPromise }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${import.meta.env.VITE_API_URL}/enrollments/${id}`)
+          .delete(`${import.meta.env.VITE_API_URL}/enrollments/${id}`,{withCredentials:true})
           .then((res) => {
             if (res.data.deletedCount) {
               const remainingEnrollments = myEnrollments.filter(
