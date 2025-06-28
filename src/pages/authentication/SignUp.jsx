@@ -10,9 +10,10 @@ import { updateProfile } from "firebase/auth";
 import { auth } from "../../firebase/firebase.init";
 import SocialLogin from "./SocialLogin";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const SignUp = () => {
-  const { createUser, setUser,setLoading } = useContext(AuthContext);
+  const { createUser, setUser, setLoading } = useContext(AuthContext);
   const [showPass, setShowPass] = useState(false);
   const [showConfirmPass, setShowConfirmPass] = useState(false);
 
@@ -64,10 +65,22 @@ const SignUp = () => {
         })
           .then(() => {
             setUser(auth.currentUser);
-            toast.success("Account has created successfully😀");
-            navigate(from, { replace: true });
-            form.reset();
-            setLoading(false)
+            axios
+              .post(
+                `${import.meta.env.VITE_API_URL}/jwt`,
+                { email: userEmail },
+                { withCredentials: true }
+              )
+              .then(() => {
+                toast.success("Account has created successfully😀");
+                navigate(from, { replace: true });
+                form.reset();
+                setLoading(false);
+              })
+              .catch((err) => {
+                console.error("JWT setup failed:", err);
+                toast.error("Account created, but session setup failed.");
+              });
           })
           .catch((error) => {
             console.log(`Error from updateProfile: ${error}`);
@@ -78,6 +91,7 @@ const SignUp = () => {
         toast.error("This account is already exist!😑");
       });
   };
+
   return (
     <div className="bg-secondary px-4">
       <div className="flex justify-center items-center min-h-screen">

@@ -8,23 +8,35 @@ import { motion } from "motion/react";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 const Navbar = () => {
   const { user, signOutUser } = use(AuthContext);
   // console.log(user?.displayName,user?.email,user?.photoURL);
 
-  //❌ signOut user
+  // signOut user
   const handleSignOut = () => {
     signOutUser()
       .then(() => {
-        Swal.fire({
-          title: "User signed out successful",
-          icon: "success",
-          draggable: true,
-        });
+        axios
+          .post(
+            `${import.meta.env.VITE_API_URL}/logout`,
+            {},
+            { withCredentials: true }
+          )
+          .then(() => {
+            Swal.fire({
+              title: "Sign out successful",
+              icon: "success",
+              draggable: true,
+            });
+          })
+          .catch((err) => {
+            console.error("backend logout failed: ", err);
+          });
       })
       .catch((err) => {
-        console.log(`Error from signOut ${err}`);
+        console.log(`firebase signout failed: ${err}`);
       });
   };
 

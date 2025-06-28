@@ -1,10 +1,6 @@
-export const courseAddedByPromise = (email, accessToken) => {
+export const courseAddedByPromise = (email) => {
   return fetch(
     `${import.meta.env.VITE_API_URL}/courses/enrollments?email=${email}`,
-    {
-      headers: {
-        authorization: `Bearer ${accessToken}`,
-      },
-    }
+    { credentials: "include" }
   ).then((res) => res.json());
 };

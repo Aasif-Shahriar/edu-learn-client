@@ -7,6 +7,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { auth } from "../firebase/firebase.init";
+import axios from "axios";
 
 const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
@@ -34,6 +35,19 @@ const AuthProvider = ({ children }) => {
       console.log(currentUser);
       setUser(currentUser);
       setLoading(false);
+      if (currentUser?.email) {
+        const userData = { email: currentUser?.email };
+        axios
+          .post(`${import.meta.env.VITE_API_URL}/jwt`, userData, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     });
 
     return () => unsubscribe();

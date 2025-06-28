@@ -7,12 +7,13 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../provider/AuthContext";
 import SocialLogin from "./SocialLogin";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const Login = () => {
   const { signIn } = useContext(AuthContext);
   const [showPass, setShowPass] = useState(false);
-  const location = useLocation()
-  const navigate = useNavigate()
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const from = location.state?.from?.pathname || "/";
 
@@ -21,15 +22,27 @@ const Login = () => {
 
     const email = e.target.userEmail.value;
     const password = e.target.password.value;
-    console.log({ email, password });
+    // console.log({ email, password });
 
     signIn(email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        console.log(user);
-        toast.success("User logged in successful 😃");
-        navigate(from,{replace: true})
+
+        axios
+          .post(
+            `${import.meta.env.VITE_API_URL}/jwt`,
+            { email: user.email },
+            { withCredentials: true }
+          )
+          .then(() => {
+            toast.success("User logged in successful 😃");
+            navigate(from, { replace: true });
+          })
+          .catch((err) => {
+            console.error("JWT setup failed:", err);
+            toast.error("Login successful, but session setup failed.");
+          });
       })
       .catch((error) => {
         console.log(error);

@@ -21,6 +21,7 @@ const EnrollPriceCard = ({ course }) => {
     axios
       .get(`${import.meta.env.VITE_API_URL}/enrollments/check`, {
         params: { courseId: _id, email: user.email },
+        withCredentials: true,
       })
       .then((res) => {
         if (res.data.enrolled) {
@@ -38,7 +39,8 @@ const EnrollPriceCard = ({ course }) => {
       if (isEnrolled) {
         // first Unenroll the user
         await axios.delete(
-          `${import.meta.env.VITE_API_URL}/enrollments/${enrollmentId}`
+          `${import.meta.env.VITE_API_URL}/enrollments/${enrollmentId}`,
+          { withCredentials: true }
         );
         setIsEnrolled(false);
         setEnrollmentId(null);
@@ -51,6 +53,7 @@ const EnrollPriceCard = ({ course }) => {
           `${import.meta.env.VITE_API_URL}/enrollments/count`,
           {
             params: { email: user.email },
+            withCredentials: true,
           }
         );
 
@@ -63,12 +66,15 @@ const EnrollPriceCard = ({ course }) => {
           return;
         }
 
-        // ✅ Step 2: Proceed to Enroll
+        //  Step 2: Proceed to Enroll
         const res = await axios.post(
           `${import.meta.env.VITE_API_URL}/enrollments`,
           {
             courseId: _id,
             student: user.email,
+          },
+          {
+            withCredentials: true,
           }
         );
 
@@ -100,7 +106,9 @@ const EnrollPriceCard = ({ course }) => {
       <div className="mt-6">
         <div className="flex justify-between text-sm font-medium text-gray-700 mb-1">
           <span>Available Seats</span>
-          <span className="text-green-600 font-semibold">{seatsLeft || totalSeats}</span>
+          <span className="text-green-600 font-semibold">
+            {seatsLeft || totalSeats}
+          </span>
         </div>
         <progress
           className="progress progress-success w-full h-3"
