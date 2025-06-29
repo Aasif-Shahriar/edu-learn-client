@@ -32,10 +32,18 @@ const PopularCourses = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
-      <h2 className="text-3xl font-bold mb-4">Featured Courses</h2>
-      <p className="mb-8">Explore our most popular and highly-rated courses</p>
+      <h2
+        data-aos="fade-right"
+        data-aos-delay="200"
+        className="text-3xl font-bold mb-4"
+      >
+        Featured Courses
+      </h2>
+      <p data-aos="fade-right" data-aos-delay="400" className="mb-8">
+        Explore our most popular and highly-rated courses
+      </p>
 
-      <div className="relative">
+      <div data-aos="fade-up" data-aos-delay="600" className="relative">
         {/* Custom Arrows */}
         <button
           ref={prevRef}
@@ -54,7 +62,6 @@ const PopularCourses = () => {
           slidesPerView={3}
           spaceBetween={30}
           loop={true}
-          
           navigation={{
             prevEl: prevRef.current,
             nextEl: nextRef.current,
@@ -79,7 +86,7 @@ const PopularCourses = () => {
         </Swiper>
       </div>
 
-      <div className="text-center mt-8">
+      <div data-aos="fade-up" data-aos-delay="600" className="text-center mt-8">
         <button
           onClick={() => navigate("/courses")}
           className="btn btn-outline border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"

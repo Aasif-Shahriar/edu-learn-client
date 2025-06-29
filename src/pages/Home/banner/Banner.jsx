@@ -2,10 +2,14 @@ import React from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import { NextArrow, PrevArrow } from "./CustomArrow";
 import { motion } from "motion/react";
+import { Link } from "react-router";
 
-const Banner = () => {
+const Banner = ({ categoryRef,latestRef,featuredRef }) => {
+  const handleScroll = (ref) => {
+    ref.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   const settings = {
     dots: true,
     infinite: true,
@@ -57,57 +61,65 @@ const Banner = () => {
         <Slider {...settings} className="container mx-auto px-4">
           {/* slider - 1 */}
           <div>
-            <h1 className="text-4xl md:text-5xl font-bold leading-tight">
+            <h1 data-aos="fade-up"  data-aos-delay="0" className="text-4xl md:text-5xl font-bold leading-tight">
               Advance Your Career With <br className="hidden sm:block" />
               Expert-Led Courses
             </h1>
-            <p className="mt-6 text-lg text-[#c0c3ff]">
+            <p data-aos="fade-up"  data-aos-delay="200" className="mt-6 text-lg text-[#c0c3ff]">
               Learn the most in-demand skills from industry experts and
               transform your career path today.
             </p>
-            <div className="mt-8 flex flex-col sm:flex-row gap-4">
-              <button className="bg-white text-[#332c91] font-medium py-3 px-6 rounded-md hover:bg-gray-200 transition cursor-pointer">
-                Explore Courses
-              </button>
-              <button className="bg-transparent border border-white py-3 px-6 rounded-md  transition font-medium hover:bg-white/10 cursor-pointer">
-                Become an Instructor
-              </button>
+            <div data-aos="fade-up"  data-aos-delay="400" className="mt-8 flex flex-col sm:flex-row gap-4">
+              <Link to="/courses">
+                {" "}
+                <button className="bg-white text-[#332c91] font-medium py-3 px-6 rounded-md hover:bg-gray-200 transition cursor-pointer">
+                  Explore Courses
+                </button>
+              </Link>
+              <Link to="/add-course">
+                <button className="bg-transparent border border-white py-3 px-6 rounded-md  transition font-medium hover:bg-white/10 cursor-pointer">
+                  Become an Instructor
+                </button>
+              </Link>
             </div>
           </div>
           {/* slider - 2 */}
           <div>
-            <h1 className="text-4xl md:text-5xl font-bold leading-tight">
+            <h1 data-aos="fade-up"  data-aos-delay="0" className="text-4xl md:text-5xl font-bold leading-tight">
               Master New Skills at Your Own Pace
               <br className="hidden sm:block" />
               Own Pace
             </h1>
-            <p className="mt-6 text-lg text-[#c0c3ff]">
+            <p data-aos="fade-up"  data-aos-delay="200" className="mt-6 text-lg text-[#c0c3ff]">
               Access over 1000+ courses taught by expert instructors with
               self-paced learning options.
             </p>
-            <div className="mt-8 flex flex-col sm:flex-row gap-4">
-              <button className="bg-white text-[#332c91] font-medium py-3 px-6 rounded-md hover:bg-gray-200 transition cursor-pointer">
-                Statrt Learning
+            <div data-aos="fade-up"  data-aos-delay="400" className="mt-8 flex flex-col sm:flex-row gap-4">
+              <button  onClick={() => handleScroll(latestRef)} className="bg-white text-[#332c91] font-medium py-3 px-6 rounded-md hover:bg-gray-200 transition cursor-pointer">
+                Latest Course
               </button>
-              <button className="bg-transparent border border-white py-3 px-6 rounded-md  transition font-medium hover:bg-white/10 cursor-pointer">
+              <button
+                onClick={() => handleScroll(categoryRef)}
+                className="bg-transparent border border-white py-3 px-6 rounded-md  transition font-medium hover:bg-white/10 cursor-pointer"
+              >
                 View Categories
               </button>
             </div>
           </div>
           {/* slider - 3 */}
           <div>
-            <h1 className="text-4xl md:text-5xl font-bold leading-tight">
+            <h1 data-aos="fade-up"  data-aos-delay="0" className="text-4xl md:text-5xl font-bold leading-tight">
               Learn From Anywhere,
               <br className="hidden sm:block" />
               Anytime You Want
             </h1>
-            <p className="mt-6 text-lg text-[#c0c3ff]">
+            <p data-aos="fade-up"  data-aos-delay="200" className="mt-6 text-lg text-[#c0c3ff]">
               Enjoy the flexibility of online learning with 24/7 access to your
               courses on any device.
             </p>
-            <div className="mt-8 flex flex-col sm:flex-row gap-4">
-              <button className="bg-white text-[#332c91] font-medium py-3 px-6 rounded-md hover:bg-gray-200 transition cursor-pointer">
-                Browse All Courses
+            <div data-aos="fade-up"  data-aos-delay="400" className="mt-8 flex flex-col sm:flex-row gap-4">
+              <button onClick={()=>handleScroll(featuredRef)} className="bg-white text-[#332c91] font-medium py-3 px-6 rounded-md hover:bg-gray-200 transition cursor-pointer">
+                Popular Courses
               </button>
               <button className="bg-transparent border border-white py-3 px-6 rounded-md  transition font-medium hover:bg-white/10 cursor-pointer">
                 Learn on the Go
@@ -116,19 +128,19 @@ const Banner = () => {
           </div>
           {/* slider - 4 */}
           <div>
-            <h1 className="text-4xl md:text-5xl font-bold leading-tight">
+            <h1 data-aos="fade-up"  data-aos-delay="0" className="text-4xl md:text-5xl font-bold leading-tight">
               Get Certified & Showcase
               <br className="hidden sm:block" />
               Your Achievements
             </h1>
-            <p className="mt-6 text-lg text-[#c0c3ff]">
+            <p data-aos="fade-up"  data-aos-delay="200" className="mt-6 text-lg text-[#c0c3ff]">
               Earn industry-recognized certificates and boost your profile with
               every course you complete.
             </p>
-            <div className="mt-8 flex flex-col sm:flex-row gap-4">
-              <button className="bg-white text-[#332c91] font-medium py-3 px-6 rounded-md hover:bg-gray-200 transition cursor-pointer">
+            <div data-aos="fade-up"  data-aos-delay="400" className="mt-8 flex flex-col sm:flex-row gap-4">
+             <Link to='/my-enrollments'> <button className="bg-white text-[#332c91] font-medium py-3 px-6 rounded-md hover:bg-gray-200 transition cursor-pointer">
                 Earn a Certificate
-              </button>
+              </button></Link>
               <button className="bg-transparent border border-white py-3 px-6 rounded-md  transition font-medium hover:bg-white/10 cursor-pointer">
                 See Success Stories
               </button>

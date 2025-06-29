@@ -63,10 +63,10 @@ const FeaturedCourses = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10 relative">
-      <h2 className="text-3xl font-bold mb-4">Latest Courses</h2>
-      <p>Explore the newly added courses.</p>
+      <h2 data-aos="fade-right"  data-aos-delay="200" className="text-3xl font-bold mb-4">Latest Courses</h2>
+      <p data-aos="fade-right"  data-aos-delay="200">Explore the newly added courses.</p>
 
-      <div className="slider-container">
+      <div data-aos="fade-up"  data-aos-delay="400" className="slider-container">
         <Slider {...settings}>
           {courses.map((course) => (
             <div key={course._id} className="py-10 px-2">
@@ -76,7 +76,7 @@ const FeaturedCourses = () => {
         </Slider>
       </div>
 
-      <div className="text-center">
+      <div data-aos="fade-up"  data-aos-delay="400" className="text-center">
         <button
           onClick={() => navigate("/courses")}
           className="btn btn-outline border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"

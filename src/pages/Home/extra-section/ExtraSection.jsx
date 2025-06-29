@@ -8,7 +8,11 @@ const ExtraSection = () => {
     <div className="max-w-7xl mx-auto px-4">
       <div className="flex flex-col md:flex-row items-center gap-10 ">
         {/* left */}
-        <div className="w-full md:w-1/2">
+        <div
+          data-aos="fade-right"
+          data-aos-delay="600"
+          className="w-full md:w-1/2"
+        >
           <img
             className="w-full rounded-2xl"
             src={sectionImg}
@@ -16,7 +20,11 @@ const ExtraSection = () => {
           />
         </div>
         {/* right */}
-        <div className="space-y-5 w-full md:w-1/2">
+        <div
+          data-aos="fade-left"
+          data-aos-delay="600"
+          className="space-y-5 w-full md:w-1/2"
+        >
           <h2 className="text-4xl font-bold text-accent/80">
             Become an Instructor
           </h2>
@@ -59,7 +67,10 @@ const ExtraSection = () => {
               </div>
             </li>
           </ul>
-           <Link to='/add-course'> <button className="btn btn-primary">Start Teaching Today</button></Link>
+          <Link to="/add-course">
+            {" "}
+            <button className="btn btn-primary">Start Teaching Today</button>
+          </Link>
         </div>
       </div>
     </div>
