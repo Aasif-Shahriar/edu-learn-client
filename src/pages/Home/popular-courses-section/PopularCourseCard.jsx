@@ -1,5 +1,5 @@
 import React from "react";
-import { FaClock, FaSignal } from "react-icons/fa";
+import { FaClock, FaEye, FaSignal } from "react-icons/fa";
 import { IoMdPricetag } from "react-icons/io";
 import { PiStudentBold } from "react-icons/pi";
 import { Link } from "react-router";
@@ -14,22 +14,25 @@ const PopularCourseCard = ({ course }) => {
     price,
     duration,
     level,
-    enrolledCount
+    enrolledCount,
   } = course;
 
   return (
     <Link to={`/course-details/${_id}`}>
-      <div className="max-w-sm h-[420px] flex-grow bg-white shadow-lg rounded-xl hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-200">
+      <div className="max-w-sm h-[420px] flex-grow bg-white shadow-lg rounded-xl hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-200 group">
         {/* Top Image Section */}
         <div className="relative h-48">
           <img
             src={imageUrl}
             alt={title}
-            className="h-full w-full object-cover object-center"
+            className="h-full w-full object-cover object-center transform group-hover:scale-110 transition duration-500"
           />
-          <span className="absolute top-2 left-2 bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded-md z-10">
-           Popular
+          <span className="absolute top-2 left-2 bg-gray-600 text-white text-xs font-semibold px-2 py-1 rounded-md z-10">
+            Popular
           </span>
+          <div className="absolute top-4 right-[-40px] group-hover:right-4 transition-all duration-500 bg-black bg-opacity-50 p-2 rounded-full z-20">
+            <FaEye className="text-white text-lg" />
+          </div>
         </div>
 
         {/* Content Section */}
@@ -72,8 +75,6 @@ const PopularCourseCard = ({ course }) => {
               {enrolledCount} Enrolled
             </span>
           </div>
-
-         
         </div>
       </div>
     </Link>

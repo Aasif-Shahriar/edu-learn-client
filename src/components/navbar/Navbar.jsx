@@ -73,7 +73,7 @@ const Navbar = () => {
     </>
   );
   return (
-    <nav className="bg-base-100 shadow-2xl">
+    <nav className="bg-base-100 shadow">
       <div className="navbar container mx-auto px-4">
         <div className="navbar-start">
           <div className="dropdown">
@@ -102,15 +102,51 @@ const Navbar = () => {
         {/* navbar end */}
         <div className="navbar-end">
           {user ? (
-            <button
-              data-tooltip-id="logout-tooltip"
-              data-tooltip-content="Sign out"
-              onClick={handleSignOut}
-              className="text-lg p-2 rounded-sm cursor-pointer bg-red-500 text-white"
-            >
-              <RxExit />
-              <Tooltip id="logout-tooltip" place="bottom"></Tooltip>
-            </button>
+            <>
+              {" "}
+              <div className="ml-4">
+                <div className="dropdown dropdown-end bg-gray-100 rounded-full">
+                  <div tabIndex={0} role="button" className=" m-1">
+                    <img
+                      src={user?.photoURL}
+                      alt={user?.displayName}
+                      className="w-10 h-10 cursor-pointer object-cover object-center rounded-full border-3  border-transparent hover:border-gray-400 transition-all duration-300"
+                    />
+                  </div>
+                  <ul
+                    tabIndex={0}
+                    className="dropdown-content bg-secondary rounded z-1 w-[300px] p-3 shadow-lg"
+                  >
+                    <div className="bg-white shadow-xl p-2 rounded">
+                      {" "}
+                      <div className="flex flex-col justify-center items-center gap-2">
+                        <img
+                          src={user?.photoURL}
+                          alt=""
+                          className="w-24 h-24 object-center object-cover rounded-full"
+                        />
+
+                        <div className="text-center">
+                          <h3 className="text-accent text-xl font-semibold">
+                            Hi, {user?.displayName}
+                          </h3>
+                          <p>{user?.email}</p>
+                        </div>
+                      </div>
+                      <div className="divider"></div>
+                      <div className="flex items-center justify-center">
+                        <button
+                          onClick={handleSignOut}
+                          className="flex items-center gap-2 p-2 rounded-sm cursor-pointer bg-red-500 text-white"
+                        >
+                          <RxExit size={20} /> Sign out
+                        </button>
+                      </div>
+                    </div>
+                  </ul>
+                </div>
+              </div>
+            </>
           ) : (
             <>
               {" "}
@@ -130,21 +166,6 @@ const Navbar = () => {
               </Link>
             </>
           )}
-          {/* 📷 user's profile */}
-          <div className="ml-4">
-            {user && (
-              <>
-                <img
-                  src={user?.photoURL}
-                  alt={user?.displayName}
-                  data-tooltip-id="userName-tooltip"
-                  data-tooltip-content={user?.displayName}
-                  className="w-10 h-10 cursor-pointer object-cover object-center rounded-full"
-                />
-                <Tooltip id="userName-tooltip" place="bottom"></Tooltip>
-              </>
-            )}
-          </div>
         </div>
       </div>
     </nav>

@@ -1,10 +1,9 @@
-import React from "react";
-import { FaClock, FaSignal } from "react-icons/fa";
-import { IoMdPricetag } from "react-icons/io";
+import { FaClock, FaSignal, FaEye } from "react-icons/fa";
 import { MdUpdate } from "react-icons/md";
+import { IoMdPricetag } from "react-icons/io";
 import { Link } from "react-router";
 
-const AllCoursesCard = ({ course }) => {
+export default function AllCourseCard({ course }) {
   const {
     _id,
     title,
@@ -23,16 +22,22 @@ const AllCoursesCard = ({ course }) => {
     day: "numeric",
     year: "numeric",
   });
+
   return (
     <Link to={`/course-details/${_id}`}>
-      <div className="max-w-sm h-[420px] flex-grow bg-white shadow-lg rounded-xl hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-200">
+      <div className="max-w-sm h-[420px] flex-grow bg-white shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-200 group">
         {/* Top Image Section */}
-        <div className="relative h-48">
+        <div className="relative h-48 overflow-hidden">
           <img
             src={imageUrl}
             alt={title}
-            className="h-full w-full object-cover object-center"
+            className="h-full w-full object-cover object-center transform group-hover:scale-110 transition duration-500"
           />
+
+          {/* Eye Icon on Hover */}
+          <div className="absolute top-4 right-[-40px] group-hover:right-4 transition-all duration-500 bg-black bg-opacity-50 p-2 rounded-full z-20">
+            <FaEye className="text-white text-lg" />
+          </div>
         </div>
 
         {/* Content Section */}
@@ -40,10 +45,9 @@ const AllCoursesCard = ({ course }) => {
           {/* Title */}
           <h2 className="text-xl font-bold mb-1">{title}</h2>
 
-          {/* Author and price*/}
+          {/* Author and price */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center">
-              {" "}
               <img
                 src={instructorPhoto}
                 alt={`${instructorName}_avatar`}
@@ -53,9 +57,10 @@ const AllCoursesCard = ({ course }) => {
                 {instructorName}
               </span>
             </div>
+
             {/* Price */}
-            <div className="flex items-center mt-4 text-right text-indigo-600 font-bold text-lg">
-              <IoMdPricetag />
+            <div className="flex items-center text-indigo-600 font-bold text-lg">
+              <IoMdPricetag className="mr-1" />
               {price}
             </div>
           </div>
@@ -79,6 +84,4 @@ const AllCoursesCard = ({ course }) => {
       </div>
     </Link>
   );
-};
-
-export default AllCoursesCard;
+}
