@@ -2,10 +2,14 @@ import React from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { Link } from "react-router";
+import banner1 from '../../../assets/images/banner1.jpg'
+import banner2 from '../../../assets/images/banner2.jpg'
+import banner3 from '../../../assets/images/banner3.jpg'
+import banner4 from '../../../assets/images/banner4.jpg'
 
-const Banner = ({ categoryRef,latestRef,featuredRef }) => {
+const Banner = ({ categoryRef, latestRef, featuredRef }) => {
   const handleScroll = (ref) => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -17,138 +21,138 @@ const Banner = ({ categoryRef,latestRef,featuredRef }) => {
     slidesToScroll: 1,
     arrows: false,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 5000,
     pauseOnHover: true,
-
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          initialSlide: 1,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
   };
+
+  const slides = [
+    {
+      title: "Advance Your Career With Expert-Led Courses",
+      desc: "Learn the most in-demand skills from industry experts and transform your career path today.",
+      buttons: [
+        { label: "Explore Courses", link: "/courses", type: "primary" },
+        {
+          label: "Become an Instructor",
+          link: "/add-course",
+          type: "secondary",
+        },
+      ],
+      bgImage: banner1
+    },
+    {
+      title: "Master New Skills at Your Own Pace",
+      desc: "Access over 1000+ courses taught by expert instructors with self-paced learning options.",
+      buttons: [
+        { label: "Latest Course", scrollRef: latestRef, type: "primary" },
+        { label: "View Categories", scrollRef: categoryRef, type: "secondary" },
+      ],
+      bgImage: banner2
+    },
+    {
+      title: "Learn From Anywhere, Anytime You Want",
+      desc: "Enjoy the flexibility of online learning with 24/7 access to your courses on any device.",
+      buttons: [
+        { label: "Popular Courses", scrollRef: featuredRef, type: "primary" },
+        { label: "Learn on the Go", type: "secondary" },
+      ],
+      bgImage: banner3
+    },
+    {
+      title: "Get Certified & Showcase Your Achievements",
+      desc: "Earn industry-recognized certificates and boost your profile with every course you complete.",
+      buttons: [
+        {
+          label: "Earn a Certificate",
+          link: "/my-enrollments",
+          type: "primary",
+        },
+        { label: "See Success Stories", type: "secondary" },
+      ],
+      bgImage: banner4
+    },
+  ];
+
   return (
-    // px-6 md:px-16 lg:px-32
-    <div>
-      <motion.section
-        initial={{ backgroundColor: "#4F46E5" }}
-        animate={{
-          backgroundColor: ["#4F46E5", "#1D4ED8", "#1E3A8A", "#4F46E5"],
-        }}
-        transition={{ duration: 6, repeat: Infinity, repeatType: "loop" }}
-        className="bg-primary text-white py-20 flex justify-center items-center min-h-[500px] slider-container"
-      >
-        <Slider {...settings} className="container mx-auto px-4">
-          {/* slider - 1 */}
-          <div>
-            <h1 data-aos="fade-up"  data-aos-delay="0" className="text-4xl md:text-5xl font-bold leading-tight">
-              Advance Your Career With <br className="hidden sm:block" />
-              Expert-Led Courses
-            </h1>
-            <p data-aos="fade-up"  data-aos-delay="200" className="mt-6 text-lg text-[#c0c3ff]">
-              Learn the most in-demand skills from industry experts and
-              transform your career path today.
-            </p>
-            <div data-aos="fade-up"  data-aos-delay="400" className="mt-8 flex flex-col sm:flex-row gap-4">
-              <Link to="/courses">
-                {" "}
-                <button className="bg-white text-[#332c91] font-medium py-3 px-6 rounded-md hover:bg-gray-200 transition cursor-pointer">
-                  Explore Courses
-                </button>
-              </Link>
-              <Link to="/add-course">
-                <button className="bg-transparent border border-white py-3 px-6 rounded-md  transition font-medium hover:bg-white/10 cursor-pointer">
-                  Become an Instructor
-                </button>
-              </Link>
+    <motion.section
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+      className="relative"
+    >
+      <Slider {...settings}>
+        {slides.map((slide, index) => (
+          <div key={index} className="relative">
+            <div
+              className="w-full min-h-[500px] md:min-h-[600px] lg:min-h-[700px] bg-cover bg-center relative"
+              style={{
+                backgroundImage: `url(${slide.bgImage})`,
+              }}
+            >
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-black/50"></div>
+
+              {/* Content */}
+              <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-12 lg:px-20 py-20 text-white flex flex-col justify-center min-h-[500px]">
+                <motion.h1
+                  initial={{ y: 50, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.2, duration: 0.6 }}
+                  className="text-3xl md:text-5xl font-bold leading-tight"
+                >
+                  {slide.title}
+                </motion.h1>
+
+                <motion.p
+                  initial={{ y: 50, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.4, duration: 0.6 }}
+                  className="mt-4 md:mt-6 text-base md:text-lg text-gray-200 max-w-2xl"
+                >
+                  {slide.desc}
+                </motion.p>
+
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.6, duration: 0.6 }}
+                  className="mt-8 flex flex-col sm:flex-row gap-4"
+                >
+                  {slide.buttons.map((btn, i) =>
+                    btn.link ? (
+                      <Link to={btn.link} key={i}>
+                        <button
+                          className={`${
+                            btn.type === "primary"
+                              ? "bg-white text-[#332c91] hover:bg-gray-200"
+                              : "border border-white bg-transparent hover:bg-white/10 text-white"
+                          } font-medium py-3 px-6 rounded-md transition`}
+                        >
+                          {btn.label}
+                        </button>
+                      </Link>
+                    ) : (
+                      <button
+                        key={i}
+                        onClick={() =>
+                          btn.scrollRef && handleScroll(btn.scrollRef)
+                        }
+                        className={`${
+                          btn.type === "primary"
+                            ? "bg-white text-[#332c91] hover:bg-gray-200"
+                            : "border border-white bg-transparent hover:bg-white/10 text-white"
+                        } font-medium py-3 px-6 rounded-md transition`}
+                      >
+                        {btn.label}
+                      </button>
+                    )
+                  )}
+                </motion.div>
+              </div>
             </div>
           </div>
-          {/* slider - 2 */}
-          <div>
-            <h1 data-aos="fade-up"  data-aos-delay="0" className="text-4xl md:text-5xl font-bold leading-tight">
-              Master New Skills at Your Own Pace
-              <br className="hidden sm:block" />
-              Own Pace
-            </h1>
-            <p data-aos="fade-up"  data-aos-delay="200" className="mt-6 text-lg text-[#c0c3ff]">
-              Access over 1000+ courses taught by expert instructors with
-              self-paced learning options.
-            </p>
-            <div data-aos="fade-up"  data-aos-delay="400" className="mt-8 flex flex-col sm:flex-row gap-4">
-              <button  onClick={() => handleScroll(latestRef)} className="bg-white text-[#332c91] font-medium py-3 px-6 rounded-md hover:bg-gray-200 transition cursor-pointer">
-                Latest Course
-              </button>
-              <button
-                onClick={() => handleScroll(categoryRef)}
-                className="bg-transparent border border-white py-3 px-6 rounded-md  transition font-medium hover:bg-white/10 cursor-pointer"
-              >
-                View Categories
-              </button>
-            </div>
-          </div>
-          {/* slider - 3 */}
-          <div>
-            <h1 data-aos="fade-up"  data-aos-delay="0" className="text-4xl md:text-5xl font-bold leading-tight">
-              Learn From Anywhere,
-              <br className="hidden sm:block" />
-              Anytime You Want
-            </h1>
-            <p data-aos="fade-up"  data-aos-delay="200" className="mt-6 text-lg text-[#c0c3ff]">
-              Enjoy the flexibility of online learning with 24/7 access to your
-              courses on any device.
-            </p>
-            <div data-aos="fade-up"  data-aos-delay="400" className="mt-8 flex flex-col sm:flex-row gap-4">
-              <button onClick={()=>handleScroll(featuredRef)} className="bg-white text-[#332c91] font-medium py-3 px-6 rounded-md hover:bg-gray-200 transition cursor-pointer">
-                Popular Courses
-              </button>
-              <button className="bg-transparent border border-white py-3 px-6 rounded-md  transition font-medium hover:bg-white/10 cursor-pointer">
-                Learn on the Go
-              </button>
-            </div>
-          </div>
-          {/* slider - 4 */}
-          <div>
-            <h1 data-aos="fade-up"  data-aos-delay="0" className="text-4xl md:text-5xl font-bold leading-tight">
-              Get Certified & Showcase
-              <br className="hidden sm:block" />
-              Your Achievements
-            </h1>
-            <p data-aos="fade-up"  data-aos-delay="200" className="mt-6 text-lg text-[#c0c3ff]">
-              Earn industry-recognized certificates and boost your profile with
-              every course you complete.
-            </p>
-            <div data-aos="fade-up"  data-aos-delay="400" className="mt-8 flex flex-col sm:flex-row gap-4">
-             <Link to='/my-enrollments'> <button className="bg-white text-[#332c91] font-medium py-3 px-6 rounded-md hover:bg-gray-200 transition cursor-pointer">
-                Earn a Certificate
-              </button></Link>
-              <button className="bg-transparent border border-white py-3 px-6 rounded-md  transition font-medium hover:bg-white/10 cursor-pointer">
-                See Success Stories
-              </button>
-            </div>
-          </div>
-        </Slider>
-      </motion.section>
-    </div>
+        ))}
+      </Slider>
+    </motion.section>
   );
 };
 
