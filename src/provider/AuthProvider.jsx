@@ -13,7 +13,7 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
 
-  console.log(`user data from authProvider: ${user}`);
+  // console.log(`user data from authProvider: ${user}`);
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -32,7 +32,6 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      console.log(currentUser);
       setUser(currentUser);
       setLoading(false);
       if (currentUser?.email) {

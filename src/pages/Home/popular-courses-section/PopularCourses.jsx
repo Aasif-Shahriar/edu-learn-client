@@ -14,7 +14,6 @@ const PopularCourses = () => {
   const [popularCourses, setPopularCourses] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  console.log(popularCourses);
 
   const prevRef = useRef(null);
   const nextRef = useRef(null);

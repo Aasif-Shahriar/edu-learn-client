@@ -35,7 +35,6 @@ const ManageCourseTable = ({ courseAddedByPromise }) => {
         axios
           .delete(`${import.meta.env.VITE_API_URL}/course/${id}`)
           .then((res) => {
-            console.log(res.data);
             if (res.data.deletedCount) {
               const remaininCourses = myCourses.filter(
                 (data) => data._id !== id

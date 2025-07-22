@@ -4,7 +4,7 @@ import useAuth from "../../../hooks/useAuth";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-const EnrollPriceCard = ({ course }) => {
+const EnrollPriceCard = ({ course, onEnrollmentChange }) => {
   const { _id, benefits, price, totalSeats, enrolledCount, title } = course;
   const { user } = useAuth();
 
@@ -13,9 +13,15 @@ const EnrollPriceCard = ({ course }) => {
   const [isEnrolled, setIsEnrolled] = useState(false);
   const [enrollmentId, setEnrollmentId] = useState(null);
 
-  console.log(enrolled);
 
-  //  Checking if user already enrolled
+  useEffect(() => {
+    if (course) {
+      setEnrolled(course.enrolledCount);
+      setSeatsLeft(course.totalSeats - course.enrolledCount);
+    }
+  }, [course]);
+
+  // Checking if user already enrolled
   useEffect(() => {
     if (!user) return;
     axios
@@ -31,13 +37,13 @@ const EnrollPriceCard = ({ course }) => {
       });
   }, [user, _id]);
 
-  //  Handle enroll and unenroll
+  // Handle enroll and unenroll
   const handleToggleEnrollment = async () => {
     if (!user) return;
 
     try {
       if (isEnrolled) {
-        // first Unenroll the user
+        // Unenroll the user
         await axios.delete(
           `${import.meta.env.VITE_API_URL}/enrollments/${enrollmentId}`,
           { withCredentials: true }
@@ -47,8 +53,9 @@ const EnrollPriceCard = ({ course }) => {
         setEnrolled((prev) => prev - 1);
         setSeatsLeft((prev) => prev + 1);
         Swal.fire("Unenrolled!", `from "${title}"`, "info");
+        if (onEnrollmentChange) onEnrollmentChange();
       } else {
-        //  Checking if user has already enrolled in 3 courses
+        // Check enrollment limit
         const { data } = await axios.get(
           `${import.meta.env.VITE_API_URL}/enrollments/count`,
           {
@@ -66,7 +73,7 @@ const EnrollPriceCard = ({ course }) => {
           return;
         }
 
-        //  Step 2: Proceed to Enroll
+        // Proceed to enroll
         const res = await axios.post(
           `${import.meta.env.VITE_API_URL}/enrollments`,
           {
@@ -84,6 +91,7 @@ const EnrollPriceCard = ({ course }) => {
           setSeatsLeft((prev) => prev - 1);
           setEnrollmentId(res.data.insertedId);
           Swal.fire("Enrolled!", `in "${title}"`, "success");
+          if (onEnrollmentChange) onEnrollmentChange();
         }
       }
     } catch (err) {

@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { useLoaderData } from "react-router";
 
 const UpdateCourseForm = () => {
+  const data = useLoaderData();
   const {
     _id,
     title,
@@ -18,7 +19,7 @@ const UpdateCourseForm = () => {
     totalSeats,
     tags,
     category,
-  } = useLoaderData();
+  } = data;
   const handleUpdateCourse = (e) => {
     e.preventDefault();
 
@@ -40,13 +41,9 @@ const UpdateCourseForm = () => {
       .map((item) => item.trim());
     //process of tags
     updateCourse.tags = updateCourse.tags.split(",").map((item) => item.trim());
-    console.log(updateCourse);
 
     axios
-      .put(
-        `${import.meta.env.VITE_API_URL}/course/${_id}`,
-        updateCourse
-      )
+      .put(`${import.meta.env.VITE_API_URL}/course/${_id}`, updateCourse)
       .then((res) => {
         if (res.data.modifiedCount) {
           Swal.fire({

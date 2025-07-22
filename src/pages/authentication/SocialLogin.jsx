@@ -40,6 +40,7 @@ const SocialLogin = () => {
       })
       .catch((err) => {
         console.log(`error from google signIn: ${err}`);
+        toast.error("Failed to log in");
       });
   };
 
@@ -64,6 +65,7 @@ const SocialLogin = () => {
       })
       .catch((err) => {
         console.log(`error from github signIn: ${err}`);
+        toast.error("failed to log in");
       });
   };
 

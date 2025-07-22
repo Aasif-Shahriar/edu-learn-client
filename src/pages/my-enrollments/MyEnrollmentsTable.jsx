@@ -8,7 +8,6 @@ const MyEnrollmentsTable = ({ myEnrollmentsPromise }) => {
   const [myEnrollments, setMyEnrollments] = useState([]);
   const[loading,setLoading]=useState(true)
 
-  console.log(`enrollments object from my-enrollment-table: ${myEnrollments}`);
 
   useEffect(() => {
     myEnrollmentsPromise.then((data) => {

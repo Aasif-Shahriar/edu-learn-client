@@ -9,6 +9,7 @@ import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const { user, signOutUser } = use(AuthContext);
@@ -37,6 +38,7 @@ const Navbar = () => {
       })
       .catch((err) => {
         console.log(`firebase signout failed: ${err}`);
+        toast.error('Firebase sign out failed')
       });
   };
 
@@ -70,6 +72,10 @@ const Navbar = () => {
           </li>
         </>
       )}
+
+      <li className="text-gray-500">
+        <NavLink to="/about">About</NavLink>
+      </li>
     </>
   );
   return (

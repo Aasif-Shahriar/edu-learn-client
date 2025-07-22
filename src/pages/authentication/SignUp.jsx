@@ -21,7 +21,6 @@ const SignUp = () => {
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
 
-  console.log(`location from signUp: ${from}`);
 
   const handlleSignUp = (e) => {
     e.preventDefault();
@@ -33,9 +32,8 @@ const SignUp = () => {
     const { userName, userEmail, password, confirmPassword, userPhoto } =
       newUser;
 
-    console.log({ userName, userEmail, userPhoto });
 
-    //password validation✅
+    //password validation
     const validation = (password) => {
       const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/;
       return regex.test(password);
@@ -57,7 +55,6 @@ const SignUp = () => {
         // Signed up
         const user = userCredential.user;
 
-        console.log(`user from sign up func: ${user}`);
 
         updateProfile(user, {
           displayName: userName,
@@ -125,7 +122,7 @@ const SignUp = () => {
                 type="text"
                 className="grow"
                 name="userPhoto"
-                placeholder="Photo URL (Optional)"
+                placeholder="Photo URL"
               />
             </label>
             {/* email */}

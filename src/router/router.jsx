@@ -12,6 +12,7 @@ import Courses from "../pages/all-courses/Courses";
 import MyEnrollments from "../pages/my-enrollments/MyEnrollments";
 import ManageCourses from "../pages/manage-courses/ManageCourses";
 import UpdateCourse from "../pages/manage-courses/UpdateCourse";
+import About from "../pages/about/About";
 
 const router = createBrowserRouter([
   {
@@ -48,7 +49,7 @@ const router = createBrowserRouter([
       {
         path: "/update-course/:id",
         loader: ({ params }) =>
-          fetch(`${import.meta.env.VITE_API_URL}/${params.id}`),
+          fetch(`${import.meta.env.VITE_API_URL}/course/${params.id}`),
         element: (
           <PrivateRoute>
             <UpdateCourse></UpdateCourse>
@@ -83,6 +84,10 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path:'about',
+        Component: About
+      }
     ],
   },
   {
