@@ -17,7 +17,7 @@ const gitHubProvider = new GithubAuthProvider();
 const SocialLogin = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from || "/";
 
   //google login
   const handleGoogleLogin = () => {
@@ -32,7 +32,7 @@ const SocialLogin = () => {
           )
           .then(() => {
             toast.success("Logged-in successful");
-            navigate(from, { replace: true });
+            navigate(from);
           })
           .catch((err) => {
             console.error("JWT setup failed:", err);
@@ -57,7 +57,7 @@ const SocialLogin = () => {
           )
           .then(() => {
             toast.success("User logged in successful✅");
-            navigate(from, { replace: true });
+            navigate(from);
           })
           .catch((err) => {
             console.error("JWT setup failed:", err);

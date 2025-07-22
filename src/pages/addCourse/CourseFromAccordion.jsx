@@ -156,7 +156,7 @@ const CourseFromAccordion = () => {
                 </span>
               </label>
               <input
-                type="text"
+                type="number"
                 name="price"
                 className="input input-bordered w-full"
                 placeholder="Course price"

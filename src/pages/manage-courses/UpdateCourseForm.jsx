@@ -162,9 +162,9 @@ const UpdateCourseForm = () => {
               </span>
             </label>
             <input
-              type="text"
+              type="number"
               name="price"
-              placeholder="e.g., $25, $99"
+              placeholder="e.g., 25, 99"
               className="input input-bordered w-full"
               defaultValue={price}
               required
