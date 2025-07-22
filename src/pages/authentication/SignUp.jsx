@@ -19,7 +19,7 @@ const SignUp = () => {
 
   const location = useLocation();
   const navigate = useNavigate();
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from || "/";
 
 
   const handlleSignUp = (e) => {
@@ -70,7 +70,7 @@ const SignUp = () => {
               )
               .then(() => {
                 toast.success("Account has created successfully😀");
-                navigate(from, { replace: true });
+                navigate(from);
                 form.reset();
                 setLoading(false);
               })

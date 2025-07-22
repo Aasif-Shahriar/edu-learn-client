@@ -15,7 +15,7 @@ const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from || "/";
 
   const handleSignIn = (e) => {
     e.preventDefault();
@@ -37,7 +37,7 @@ const Login = () => {
           )
           .then(() => {
             toast.success("User logged in successful 😃");
-            navigate(from, { replace: true });
+            navigate(from);
           })
           .catch((err) => {
             console.error("JWT setup failed:", err);
