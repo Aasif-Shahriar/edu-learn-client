@@ -181,6 +181,8 @@ const CourseFromAccordion = () => {
                 <option>Data Science</option>
                 <option>Photography</option>
                 <option>Marketing</option>
+                <option>IT & Software</option>
+                <option>Finance</option>
               </select>
             </div>
           </div>

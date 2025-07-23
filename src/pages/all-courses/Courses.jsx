@@ -17,7 +17,6 @@ const Courses = () => {
   ];
 
   const filteredCourses = useMemo(() => {
-    const levelOrder = { Beginner: 1, Intermediate: 2, Advanced: 3 };
     return courses
       .filter((course) =>
         course.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -27,7 +26,10 @@ const Courses = () => {
       )
       .sort((a, b) => {
         if (!sortLevel) return 0;
-        return levelOrder[a.level] - levelOrder[b.level];
+        // Bring matching level courses to the top
+        if (a.level === sortLevel && b.level !== sortLevel) return -1;
+        if (b.level === sortLevel && a.level !== sortLevel) return 1;
+        return 0;
       });
   }, [courses, searchQuery, selectedCategory, sortLevel]);
 
@@ -40,6 +42,7 @@ const Courses = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 py-10 space-y-10">
       <title>Courses - EduLearn</title>
+
       {/* Title + Subtitle */}
       <div className="text-center">
         <h1 className="text-4xl font-bold mb-2">Explore All Courses</h1>

@@ -10,6 +10,7 @@ import { auth } from "../../firebase/firebase.init";
 import { useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const googleProvider = new GoogleAuthProvider();
 const gitHubProvider = new GithubAuthProvider();
@@ -49,6 +50,21 @@ const SocialLogin = () => {
     signInWithPopup(auth, gitHubProvider)
       .then((result) => {
         const user = result.user;
+        if (!user.email) {
+          Swal.fire({
+            icon: "error",
+            title: "Email Not Found",
+            html: `
+      We couldn't retrieve your email from your GitHub account.
+      <br><br>
+      Please make sure your email is public on GitHub or try another login method.
+      <br><br>
+      <a href="https://github.com/settings/emails" target="_blank">Update GitHub Email Settings</a>
+    `,
+            confirmButtonText: "Got it",
+          });
+        }
+
         axios
           .post(
             `${import.meta.env.VITE_API_URL}/jwt`,

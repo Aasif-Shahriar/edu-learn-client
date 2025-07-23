@@ -13,7 +13,6 @@ import { toast } from "react-toastify";
 
 const Navbar = () => {
   const { user, signOutUser } = use(AuthContext);
-  // console.log(user?.displayName,user?.email,user?.photoURL);
 
   // signOut user
   const handleSignOut = () => {

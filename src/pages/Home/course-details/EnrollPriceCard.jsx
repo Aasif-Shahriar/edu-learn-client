@@ -139,7 +139,7 @@ const EnrollPriceCard = ({ course, onEnrollmentChange }) => {
           : seatsLeft === 0 && !isEnrolled
           ? "No Seats Left"
           : isEnrolled
-          ? "Unenroll"
+          ? "Enrolled"
           : "Enroll Now"}
       </button>
 
