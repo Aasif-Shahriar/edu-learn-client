@@ -83,6 +83,7 @@ export default function DashboardOverview() {
 
   return (
     <div className="space-y-8">
+      <title>Dashboard Overview</title>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
           Dashboard Overview

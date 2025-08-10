@@ -13,7 +13,7 @@ import useAuth from "../../../hooks/useAuth";
 export default function DashboardSidebar({ closeSidebar }) {
   const { signOutUser } = useAuth();
   const links = [
-    { to: "/dashboard", label: "Dashboard Home", icon: <HiOutlineHome /> },
+    { to: "/dashboard", label: "Dashboard Overview", icon: <HiOutlineHome /> },
 
     {
       to: "/dashboard/add-course",
