@@ -1,26 +1,31 @@
+// MyEnrollments.jsx
 import React, { Suspense } from "react";
 import MyEnrollmentsTable from "./MyEnrollmentsTable";
 import Loading from "../../components/loading/Loading";
 import useAuth from "../../hooks/useAuth";
 import { myEnrollmentsPromise } from "../../APIs/enrollmentsApi";
-// import useSharedApi from "../../APIs/useSharedApi";
 
 const MyEnrollments = () => {
   const { user } = useAuth();
 
   return (
-    <div className="bg-secondary min-h-[calc(100vh-64px)] py-10">
-      <div className="max-w-7xl mx-auto px-4">
-        <h2 className="text-3xl text-accent font-bold">My Enrolled Courses</h2>
-        <p className="text-accent/80 mb-10">
-          Track your learning progress and manage your enrollments
-        </p>
-        {/* table */}
-        <div>
-          <Suspense fallback={<Loading></Loading>}>
+    <div className="bg-secondary min-h-[calc(100vh-64px)] py-6 md:py-10">
+      <div className="max-w-[1560] mx-auto px-4">
+        <div className="mb-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white mb-2">
+            My Enrolled Courses
+          </h2>
+          <p className="text-gray-600 dark:text-gray-300 max-w-2xl">
+            Track your learning progress and manage your enrollments
+          </p>
+        </div>
+
+        {/* Table section */}
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+          <Suspense fallback={<Loading />}>
             <MyEnrollmentsTable
               myEnrollmentsPromise={myEnrollmentsPromise(user?.email)}
-            ></MyEnrollmentsTable>
+            />
           </Suspense>
         </div>
       </div>

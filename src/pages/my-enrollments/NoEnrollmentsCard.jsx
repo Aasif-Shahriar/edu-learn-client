@@ -1,23 +1,44 @@
+// NoEnrollmentsCard.jsx
 import React from "react";
-import { MdSentimentDissatisfied } from "react-icons/md";
+import { MdSentimentDissatisfied, MdSearch, MdBook } from "react-icons/md";
 import { Link } from "react-router";
 
-const NoEnrollmentsCard = () => {
+const NoEnrollmentsCard = ({ hasSearch = false }) => {
   return (
-    <div className="flex flex-col items-center justify-center p-6 mt-6 text-center mx-auto">
-      <MdSentimentDissatisfied size={50} className="text-gray-400 mb-3" />
-      <h2 className="text-xl font-semibold text-gray-700 mb-1">
-        No Enrollments Yet
+    <div className="flex flex-col items-center justify-center p-8 my-12 text-center max-w-md mx-auto">
+      <div className="mb-6 p-4 bg-blue-100 dark:bg-blue-900/30 rounded-full">
+        {hasSearch ? (
+          <MdSearch size={48} className="text-blue-500 dark:text-blue-400" />
+        ) : (
+          <MdBook size={48} className="text-blue-500 dark:text-blue-400" />
+        )}
+      </div>
+
+      <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-3">
+        {hasSearch ? "No Enrollments Found" : "No Enrollments Yet"}
       </h2>
-      <p className="text-gray-500 text-sm">
-        You haven’t enrolled in any courses. Explore our catalog and get
-        started!
+
+      <p className="text-gray-600 dark:text-gray-300 mb-6">
+        {hasSearch
+          ? "Try adjusting your search to find what you're looking for."
+          : "You haven't enrolled in any courses yet. Explore our catalog and start learning!"}
       </p>
-      <Link to="/courses">
-        <button className="mt-4 px-4 py-2 bg-primary text-white rounded hover:bg-primary/90 transition cursor-pointer">
-          Browse Courses
+
+      {hasSearch ? (
+        <button
+          onClick={() => window.location.reload()}
+          className="px-6 py-3 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white font-medium rounded-lg transition-colors duration-300"
+        >
+          Clear Search
         </button>
-      </Link>
+      ) : (
+        <Link to="/courses">
+          <button className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-medium rounded-lg transition-all duration-300 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 shadow-md">
+            <MdBook size={20} />
+            <span>Browse Courses</span>
+          </button>
+        </Link>
+      )}
     </div>
   );
 };
