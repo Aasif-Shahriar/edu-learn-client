@@ -3,7 +3,7 @@ import sectionImg from "../../../assets/images/office1.png";
 import { IoMdCheckmark } from "react-icons/io";
 import { Link } from "react-router";
 
-const ExtraSection = () => {
+const BecomeInstructor = () => {
   return (
     <div className="max-w-7xl mx-auto px-4">
       <div className="flex flex-col md:flex-row items-center gap-10 ">
@@ -77,4 +77,4 @@ const ExtraSection = () => {
   );
 };
 
-export default ExtraSection;
+export default BecomeInstructor;

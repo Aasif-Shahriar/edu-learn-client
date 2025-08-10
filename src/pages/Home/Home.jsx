@@ -3,7 +3,7 @@ import Banner from "./banner/Banner";
 import Service from "./services/Service";
 import FeaturedCourses from "./latest-courses/FeaturedCourses";
 import BrowseCategories from "./browse-top-categories/BrowseCategories";
-import ExtraSection from "./extra-section/ExtraSection";
+import ExtraSection from "./extra-section/BecomeInstructor";
 import PopularCourses from "./popular-courses-section/PopularCourses";
 
 const Home = () => {
