@@ -1,6 +1,7 @@
+// ManageCourseTable.jsx
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { MdDelete, MdEdit } from "react-icons/md";
+import { MdDelete, MdEdit, MdSearch, MdFilterList } from "react-icons/md";
 import { Link } from "react-router";
 import { Tooltip } from "react-tooltip";
 import Swal from "sweetalert2";
@@ -10,46 +11,90 @@ import NoCoursesAddedCard from "./NoAddedCoursesCard";
 const ManageCourseTable = ({ courseAddedByPromise }) => {
   const [myCourses, setMyCourses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredCourses, setFilteredCourses] = useState([]);
+
+  console.log(myCourses);
 
   useEffect(() => {
     courseAddedByPromise.then((data) => {
       setMyCourses(data);
+      setFilteredCourses(data);
       setLoading(false);
     });
   }, [courseAddedByPromise]);
 
-  if (loading) return <Loading></Loading>;
+  // Filter courses based on search term
+  useEffect(() => {
+    if (searchTerm === "") {
+      setFilteredCourses(myCourses);
+    } else {
+      const filtered = myCourses.filter(
+        (course) =>
+          course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          course.level.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredCourses(filtered);
+    }
+  }, [searchTerm, myCourses]);
 
-  //delete operation
+  if (loading) return <Loading />;
+
+  // Delete operation with enhanced confirmation dialog
   const handleDeleteCourse = (id, title) => {
     Swal.fire({
       title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      text: `You are about to delete "${title}". This action cannot be undone.`,
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
       confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "Cancel",
+      customClass: {
+        popup: "dark:bg-gray-800",
+        title: "dark:text-white",
+        content: "dark:text-gray-300",
+        confirmButton: "dark:bg-red-600 dark:hover:bg-red-700",
+        cancelButton: "dark:bg-blue-600 dark:hover:bg-blue-700",
+      },
     }).then((result) => {
       if (result.isConfirmed) {
         axios
           .delete(`${import.meta.env.VITE_API_URL}/course/${id}`)
           .then((res) => {
             if (res.data.deletedCount) {
-              const remaininCourses = myCourses.filter(
+              const remainingCourses = myCourses.filter(
                 (data) => data._id !== id
               );
-              setMyCourses(remaininCourses);
-
+              setMyCourses(remainingCourses);
+              setFilteredCourses(remainingCourses);
               Swal.fire({
                 title: "Deleted!",
-                text: `Your ${title} course has been deleted.`,
+                text: `"${title}" has been deleted.`,
                 icon: "success",
+                customClass: {
+                  popup: "dark:bg-gray-800",
+                  title: "dark:text-white",
+                  content: "dark:text-gray-300",
+                  confirmButton: "dark:bg-blue-600 dark:hover:bg-blue-700",
+                },
               });
             }
           })
           .catch((err) => {
             console.log(err);
+            Swal.fire({
+              title: "Error!",
+              text: "Failed to delete the course. Please try again.",
+              icon: "error",
+              customClass: {
+                popup: "dark:bg-gray-800",
+                title: "dark:text-white",
+                content: "dark:text-gray-300",
+                confirmButton: "dark:bg-blue-600 dark:hover:bg-blue-700",
+              },
+            });
           });
       }
     });
@@ -57,48 +102,73 @@ const ManageCourseTable = ({ courseAddedByPromise }) => {
 
   return (
     <div className="w-full">
-      {myCourses.length === 0 ? (
-        <NoCoursesAddedCard />
+      {filteredCourses.length === 0 ? (
+        <NoCoursesAddedCard hasSearch={searchTerm !== ""} />
       ) : (
         <>
-          <div className="min-w-full mb-1 bg-white border border-gray-200 text-sm sm:text-base p-3 flex items-center justify-between">
-            <h2 className="text-xl font-medium">
-              Your Courses ({myCourses.length})
-            </h2>
-            <div>
-              <Link to="/add-course">
-                <button className="btn btn-primary">+ Add New Course</button>
+          {/* Header with search and add button */}
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 p-4 md:p-6 border-b border-gray-200 dark:border-gray-700">
+            <div className="flex items-center gap-2">
+              <h2 className="text-xl font-semibold text-gray-800 dark:text-white">
+                Your Courses ({filteredCourses.length})
+              </h2>
+              {searchTerm && (
+                <span className="text-sm text-gray-500 dark:text-gray-400">
+                  (Filtered)
+                </span>
+              )}
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+              <div className="relative w-full sm:w-64">
+                <input
+                  type="text"
+                  placeholder="Search courses..."
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <MdSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              </div>
+
+              <Link to="/dashboard/add-course" className="w-full sm:w-auto">
+                <button className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2">
+                  <span>+ Add New Course</span>
+                </button>
               </Link>
             </div>
           </div>
 
           {/* Desktop/tablet table view */}
           <div className="hidden sm:block overflow-x-auto">
-            <table className="min-w-full bg-white border border-gray-200 text-sm sm:text-base">
-              <thead className="bg-gray-100">
-                <tr className="text-left">
-                  <th className="py-3 px-4 font-semibold text-gray-700">
+            <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+              <thead className="bg-gray-50 dark:bg-gray-700/50">
+                <tr>
+                  <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                     Course Title
                   </th>
-                  <th className="py-3 px-4 font-semibold text-gray-700">
+                  <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                     Description
                   </th>
-                  <th className="py-3 px-4 font-semibold text-gray-700">
-                    Enrolled Counts
+                  <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    Enrollments
                   </th>
-                  <th className="py-3 px-4 font-semibold text-gray-700">
+                  <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                     Duration
                   </th>
-                  <th className="py-3 px-4 font-semibold text-gray-700">
+                  <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    Level
+                  </th>
+                  <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                     Created Date
                   </th>
-                  <th className="py-3 px-4 font-semibold text-gray-700">
-                    Action
+                  <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    Actions
                   </th>
                 </tr>
               </thead>
-              <tbody>
-                {myCourses.map((course) => {
+              <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                {filteredCourses.map((course) => {
                   const date = new Date(course.publishDate);
                   const formattedDate = date.toLocaleDateString("en-US", {
                     month: "short",
@@ -108,54 +178,60 @@ const ManageCourseTable = ({ courseAddedByPromise }) => {
                   return (
                     <tr
                       key={course._id}
-                      className="border-t border-gray-200 hover:bg-gray-50 transition-colors duration-150"
+                      className="hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors duration-150"
                     >
                       <td className="py-4 px-4">
-                        <div className="font-medium text-gray-900">
+                        <div className="font-medium text-gray-900 dark:text-white">
                           {course.title}
                         </div>
                       </td>
-                      <td className="py-4 px-4 text-gray-700 truncate max-w-[200px]">
-                        {course.description}
+                      <td className="py-4 px-4">
+                        <div className="text-sm text-gray-700 dark:text-gray-300 max-w-xs truncate">
+                          {course.description}
+                        </div>
                       </td>
                       <td className="py-4 px-4">
-                        {course.enrollmentsCount}{" "}
-                        {course.enrollmentsCount == 1
-                          ? "person has"
-                          : "people have"}{" "}
-                        enrolled
+                        <div className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
+                          {course.enrollmentsCount} enrolled
+                        </div>
                       </td>
-                      <td className="py-4 px-4 text-primary">
+                      <td className="py-4 px-4 text-sm text-gray-700 dark:text-gray-300">
                         {course.duration}
                       </td>
-                      <td className="py-4 px-4 font-medium text-green-600 text-sm">
+                      <td className="py-4 px-4 text-sm text-gray-700 dark:text-gray-300">
+                        {course.level}
+                      </td>
+                      <td className="py-4 px-4 text-sm text-gray-700 dark:text-gray-300">
                         {formattedDate}
                       </td>
-                      {/* action */}
-                      <td className="py-4 px-4 flex items-center gap-4">
-                        <Link to={`/update-course/${course._id}`}>
-                          {" "}
+                      <td className="py-4 px-4 w-24">
+                        {" "}
+                        {/* Fixed width column */}
+                        <div className="flex items-center justify-center space-x-3">
+                          <Link to={`/update-course/${course._id}`}>
+                            <button
+                              data-tooltip-id="edit"
+                              data-tooltip-content="Edit Course"
+                              className="w-8 h-8 flex items-center justify-center text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-full transition-colors duration-200"
+                              aria-label="Edit course"
+                            >
+                              <MdEdit size={18} />
+                            </button>
+                          </Link>
                           <button
-                            data-tooltip-id="edit"
-                            data-tooltip-content="Edit Course"
-                            className="text-primary hover:bg-primary/10 px-1 py-2 cursor-pointer font-medium transition-all duration-200 rounded-sm"
+                            onClick={() =>
+                              handleDeleteCourse(course._id, course.title)
+                            }
+                            data-tooltip-id="delete"
+                            data-tooltip-content="Delete Course"
+                            className="w-8 h-8 flex items-center justify-center text-red-600 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-full transition-colors duration-200"
+                            aria-label="Delete course"
                           >
-                            <MdEdit size={20} />
-                            <Tooltip id="edit" place="bottom"></Tooltip>
+                            <MdDelete size={18} />
                           </button>
-                        </Link>
-
-                        <button
-                          onClick={() =>
-                            handleDeleteCourse(course._id, course.title)
-                          }
-                          data-tooltip-id="delete"
-                          data-tooltip-content="Delete Course"
-                          className="text-red-600 hover:bg-red-100 px-1 py-2 cursor-pointer font-medium transition-all duration-200 rounded-sm"
-                        >
-                          <MdDelete size={20} />
-                          <Tooltip id="delete" place="bottom"></Tooltip>
-                        </button>
+                          <Tooltip id="edit" place="top" />
+                          <Tooltip id="delete" place="top" />
+                        </div>
                       </td>
                     </tr>
                   );
@@ -164,9 +240,9 @@ const ManageCourseTable = ({ courseAddedByPromise }) => {
             </table>
           </div>
 
-          {/* Mobile-friendly card view (visible only on mobile) */}
-          <div className="sm:hidden space-y-4">
-            {myCourses.map((course) => {
+          {/* Mobile-friendly card view */}
+          <div className="sm:hidden divide-y divide-gray-200 dark:divide-gray-700">
+            {filteredCourses.map((course) => {
               const date = new Date(course.publishDate);
               const formattedDate = date.toLocaleDateString("en-US", {
                 month: "short",
@@ -174,50 +250,46 @@ const ManageCourseTable = ({ courseAddedByPromise }) => {
                 year: "numeric",
               });
               return (
-                <div
-                  key={course._id}
-                  className="bg-white p-4 rounded-md border border-gray-200 shadow-sm"
-                >
-                  <h3 className="text-base font-semibold text-gray-800">
-                    {course.title}
-                  </h3>
-
-                  <div className="text-sm text-gray-700 space-y-2">
-                    <p>
-                      <span className="font-medium">Description:</span>{" "}
-                      {course.description}
-                    </p>
-                    <p>
-                      <span className="font-medium">Duration:</span>{" "}
-                      {course.duration}
-                    </p>
-                    <p>
-                      <span className="font-medium">Created:</span>{" "}
-                      {formattedDate}
-                    </p>
-                   
-                    <p>
-                      <span className="font-medium">Enrolled Count:</span>{" "}
-                      {course.enrollmentsCount}{" "}
-                      {course.enrollmentsCount == 1
-                        ? "person has"
-                        : "people have"}{" "}
-                      enrolled
-                    </p>
+                <div key={course._id} className="p-4 bg-white dark:bg-gray-800">
+                  <div className="flex justify-between items-start">
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                      {course.title}
+                    </h3>
+                    <div className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
+                      {course.enrollmentsCount} enrolled
+                    </div>
                   </div>
-                  {/* action */}
-                  <div className="py-4 flex items-center gap-4">
-                    <button className="flex items-center gap-1 text-primary bg-primary/10 hover:bg-primary/30 px-3 py-2 cursor-pointer font-medium transition-all duration-200 rounded-sm">
-                      <MdEdit size={20} />
-                      Edit
-                    </button>
+
+                  <div className="mt-3 space-y-2 text-sm text-gray-600 dark:text-gray-300">
+                    <p className="line-clamp-2">{course.description}</p>
+                    <div className="flex justify-between">
+                      <span className="font-medium">Duration:</span>
+                      <span>{course.duration}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="font-medium">Created:</span>
+                      <span>{formattedDate}</span>
+                    </div>
+                  </div>
+
+                  {/* Action buttons */}
+                  <div className="mt-4 flex space-x-3">
+                    <Link
+                      to={`/update-course/${course._id}`}
+                      className="flex-1"
+                    >
+                      <button className="w-full flex items-center justify-center gap-1 text-blue-600 bg-blue-50 dark:bg-blue-900/30 hover:bg-blue-100 dark:hover:bg-blue-900/50 py-2 px-4 rounded-lg transition-colors duration-200 font-medium">
+                        <MdEdit size={18} />
+                        Edit
+                      </button>
+                    </Link>
                     <button
                       onClick={() =>
                         handleDeleteCourse(course._id, course.title)
                       }
-                      className="flex items-center gap-1 text-red-600 bg-red-100 hover:bg-red-200 px-3 py-2 cursor-pointer font-medium transition-all duration-200 rounded-sm"
+                      className="flex-1 flex items-center justify-center gap-1 text-red-600 bg-red-50 dark:bg-red-900/30 hover:bg-red-100 dark:hover:bg-red-900/50 py-2 px-4 rounded-lg transition-colors duration-200 font-medium"
                     >
-                      <MdDelete size={20} />
+                      <MdDelete size={18} />
                       Delete
                     </button>
                   </div>

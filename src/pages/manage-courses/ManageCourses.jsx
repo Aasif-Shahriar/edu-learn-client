@@ -10,7 +10,7 @@ const ManageCourses = () => {
   // const { courseAddedByPromise } = useSharedApi();
   return (
     <div className="bg-secondary min-h-[calc(100vh-64px)] py-10">
-      <div className="max-w-7xl mx-auto px-4">
+      <div >
         <h2 className="text-3xl text-accent font-bold mb-3">
           Manage Your Courses
         </h2>
