@@ -3,8 +3,8 @@ import Banner from "./banner/Banner";
 import Service from "./services/Service";
 import FeaturedCourses from "./latest-courses/FeaturedCourses";
 import BrowseCategories from "./browse-top-categories/BrowseCategories";
-import ExtraSection from "./extra-section/BecomeInstructor";
 import PopularCourses from "./popular-courses-section/PopularCourses";
+import BecomeInstructor from "./extra-section/BecomeInstructor";
 
 const Home = () => {
   const categoryRef = useRef(null);
@@ -14,7 +14,7 @@ const Home = () => {
   // Smooth scroll function for navigation
   const scrollToRef = (ref) => {
     window.scrollTo({
-      top: ref.current.offsetTop - 80, // Adjust for navbar height
+      top: ref.current.offsetTop - 64,
       behavior: "smooth",
     });
   };
@@ -70,7 +70,7 @@ const Home = () => {
       {/* Extra Section */}
       <section className="py-12 md:py-16 bg-blue-50 dark:bg-gray-800/50">
         <div className="max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8">
-          <ExtraSection />
+          <BecomeInstructor />
         </div>
       </section>
 
