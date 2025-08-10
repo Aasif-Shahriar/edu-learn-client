@@ -14,15 +14,16 @@ export default function DashboardSidebar({ closeSidebar }) {
   const { signOutUser } = useAuth();
   const links = [
     { to: "/dashboard", label: "Dashboard Home", icon: <HiOutlineHome /> },
-    {
-      to: "/dashboard/manage-courses",
-      label: "Manage Courses",
-      icon: <HiOutlineBookOpen />,
-    },
+
     {
       to: "/dashboard/add-course",
       label: "Add Course",
       icon: <HiOutlinePlus />,
+    },
+    {
+      to: "/dashboard/manage-courses",
+      label: "Manage Courses",
+      icon: <HiOutlineBookOpen />,
     },
     {
       to: "/dashboard/my-enrollments",
