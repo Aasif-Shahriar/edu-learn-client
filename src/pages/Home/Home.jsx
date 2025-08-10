@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import Banner from "./banner/Banner";
 import Service from "./services/Service";
-import FeaturedCourses from "./featured-courses/FeaturedCourses";
+import FeaturedCourses from "./latest-courses/FeaturedCourses";
 import BrowseCategories from "./browse-top-categories/BrowseCategories";
 import ExtraSection from "./extra-section/ExtraSection";
 import PopularCourses from "./popular-courses-section/PopularCourses";
@@ -35,7 +35,7 @@ const Home = () => {
         ref={latestRef}
         className="py-12 md:py-16 bg-gray-100 dark:bg-gray-800/50"
       >
-        <div className="max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1560px] mx-auto px-4">
           <FeaturedCourses />
         </div>
       </section>

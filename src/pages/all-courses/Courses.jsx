@@ -1,6 +1,12 @@
 import React, { useState, useMemo } from "react";
 import { useLoaderData } from "react-router";
-import { FaSearch } from "react-icons/fa";
+import {
+  FaSearch,
+  FaFilter,
+  FaTimes,
+  FaChevronLeft,
+  FaChevronRight,
+} from "react-icons/fa";
 import AllCourseCard from "./AllCoursesCard";
 
 const Courses = () => {
@@ -9,7 +15,8 @@ const Courses = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [sortLevel, setSortLevel] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const coursesPerPage = 6;
+  const [showFilters, setShowFilters] = useState(false);
+  const coursesPerPage = 8;
 
   const categories = [
     "All",
@@ -26,7 +33,6 @@ const Courses = () => {
       )
       .sort((a, b) => {
         if (!sortLevel) return 0;
-        // Bring matching level courses to the top
         if (a.level === sortLevel && b.level !== sortLevel) return -1;
         if (b.level === sortLevel && a.level !== sortLevel) return 1;
         return 0;
@@ -39,59 +45,115 @@ const Courses = () => {
     currentPage * coursesPerPage
   );
 
+  const resetFilters = () => {
+    setSearchQuery("");
+    setSelectedCategory("All");
+    setSortLevel("");
+    setCurrentPage(1);
+  };
+
+  const isFilterActive = searchQuery || selectedCategory !== "All" || sortLevel;
+
+  const getPaginationNumbers = () => {
+    const pages = [];
+    const maxVisiblePages = 5;
+
+    if (totalPages <= maxVisiblePages) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      if (currentPage <= 3) {
+        for (let i = 1; i <= 4; i++) pages.push(i);
+        pages.push("...");
+        pages.push(totalPages);
+      } else if (currentPage >= totalPages - 2) {
+        pages.push(1, "...");
+        for (let i = totalPages - 3; i <= totalPages; i++) pages.push(i);
+      } else {
+        pages.push(1, "...");
+        for (let i = currentPage - 1; i <= currentPage + 1; i++) pages.push(i);
+        pages.push("...", totalPages);
+      }
+    }
+
+    return pages;
+  };
+
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10 space-y-10">
+    <div className="max-w-[1560px] mx-auto px-4 py-10 space-y-8">
       <title>Courses - EduLearn</title>
 
-      {/* Title + Subtitle */}
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-2">Explore All Courses</h1>
-        <p className="text-gray-500">
-          Learn anything from anywhere. Browse now.
+      {/* Header */}
+      <div className="text-center mb-8">
+        <h1 className="text-4xl md:text-5xl font-bold mb-3 text-gray-800 dark:text-white">
+          Explore All Courses
+        </h1>
+        <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          Learn anything from anywhere. Discover our wide range of courses
+          taught by industry experts.
         </p>
       </div>
 
-      {/* Filter/Search/Sort Section */}
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4 bg-base-100 p-4 rounded shadow-md">
-        <div className="text-lg font-semibold">
-          Total Courses:{" "}
-          <span className="text-primary"> {filteredCourses.length}</span>
+      {/* Filters */}
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        {/* Top Row */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
+          <div className="flex items-center gap-2">
+            <div className="text-lg font-semibold text-gray-800 dark:text-white">
+              Total Courses:{" "}
+              <span className="text-blue-600 dark:text-blue-400">
+                {filteredCourses.length}
+              </span>
+            </div>
+            {isFilterActive && (
+              <button
+                onClick={resetFilters}
+                className="flex items-center gap-1 text-sm bg-red-100 text-red-700 hover:bg-red-200 dark:bg-red-900/30 dark:text-red-300 px-3 py-1 rounded-full transition"
+              >
+                <FaTimes size={12} /> Clear
+              </button>
+            )}
+          </div>
+
+          {/* Mobile Toggle */}
+          <button
+            onClick={() => setShowFilters(!showFilters)}
+            className="md:hidden flex items-center gap-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 px-4 py-2 rounded-lg transition"
+          >
+            <FaFilter />
+            {showFilters ? "Hide Filters" : "Show Filters"}
+          </button>
         </div>
 
-        {/* Search Input */}
-        <div className="w-full md:w-1/2">
-          <label htmlFor="search" className="sr-only">
-            Search courses
-          </label>
-          <label className="input input-bordered flex items-center gap-2 w-full">
-            <FaSearch />
+        {/* Filter Controls */}
+        <div
+          className={`grid grid-cols-1 md:grid-cols-3 gap-4 ${
+            showFilters ? "block" : "hidden md:grid"
+          }`}
+        >
+          {/* Search */}
+          <div className="relative order-first md:order-none">
+            <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
             <input
-              id="search"
               type="text"
-              className="grow"
               placeholder="Search courses..."
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value);
                 setCurrentPage(1);
               }}
             />
-          </label>
-        </div>
+          </div>
 
-        {/* Category + Sort */}
-        <div className="flex gap-2">
-          <label htmlFor="category" className="sr-only">
-            Filter by category
-          </label>
+          {/* Category */}
           <select
-            id="category"
-            className="select select-bordered"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
             value={selectedCategory}
             onChange={(e) => {
               setSelectedCategory(e.target.value);
               setCurrentPage(1);
-              setSortLevel(""); // reset sort when category changes
             }}
           >
             {categories.map((cat, i) => (
@@ -101,12 +163,9 @@ const Courses = () => {
             ))}
           </select>
 
-          <label htmlFor="sortLevel" className="sr-only">
-            Sort by level
-          </label>
+          {/* Sort */}
           <select
-            id="sortLevel"
-            className="select select-bordered"
+            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
             value={sortLevel}
             onChange={(e) => setSortLevel(e.target.value)}
           >
@@ -118,12 +177,18 @@ const Courses = () => {
         </div>
       </div>
 
-      {/* Course Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Course Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {paginatedCourses.length === 0 ? (
-          <p className="col-span-full text-center text-gray-500">
-            No courses found.
-          </p>
+          <div className="col-span-full text-center py-12">
+            <p className="text-gray-500 dark:text-gray-400">No courses found</p>
+            <button
+              onClick={resetFilters}
+              className="mt-4 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition"
+            >
+              Reset All Filters
+            </button>
+          </div>
         ) : (
           paginatedCourses.map((course) => (
             <AllCourseCard key={course._id} course={course} />
@@ -134,21 +199,55 @@ const Courses = () => {
       {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex justify-center mt-8">
-          <div className="join">
-            {Array.from({ length: totalPages }, (_, i) => (
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={() => {
+                setCurrentPage((prev) => Math.max(prev - 1, 1));
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              disabled={currentPage === 1}
+              className={`p-2 rounded-lg ${
+                currentPage === 1
+                  ? "text-gray-400 cursor-not-allowed"
+                  : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+              }`}
+            >
+              <FaChevronLeft />
+            </button>
+
+            {getPaginationNumbers().map((page, index) => (
               <button
-                key={i}
-                className={`join-item btn btn-sm ${
-                  currentPage === i + 1 ? "btn-primary" : "btn-outline"
-                }`}
+                key={index}
                 onClick={() => {
-                  setCurrentPage(i + 1);
-                  window.scrollTo({ top: 0, behavior: "smooth" });
+                  if (page !== "...") {
+                    setCurrentPage(page);
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }
                 }}
+                className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                  currentPage === page
+                    ? "bg-blue-600 text-white"
+                    : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                } ${page === "..." ? "cursor-default" : ""}`}
               >
-                {i + 1}
+                {page}
               </button>
             ))}
+
+            <button
+              onClick={() => {
+                setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              disabled={currentPage === totalPages}
+              className={`p-2 rounded-lg ${
+                currentPage === totalPages
+                  ? "text-gray-400 cursor-not-allowed"
+                  : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+              }`}
+            >
+              <FaChevronRight />
+            </button>
           </div>
         </div>
       )}
