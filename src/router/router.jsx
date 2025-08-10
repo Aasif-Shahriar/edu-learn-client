@@ -13,6 +13,9 @@ import MyEnrollments from "../pages/my-enrollments/MyEnrollments";
 import ManageCourses from "../pages/manage-courses/ManageCourses";
 import UpdateCourse from "../pages/manage-courses/UpdateCourse";
 import About from "../pages/about/About";
+import DashboardOverview from "../pages/dashboard-pages/dashboard-overview/DashboardOverview";
+import DashboardLayout from "../layouts/DashboardLayout";
+import UserProfile from "../components/dashboard-components/user-profile/UserProfile";
 
 const router = createBrowserRouter([
   {
@@ -24,70 +27,68 @@ const router = createBrowserRouter([
         Component: Home,
       },
       {
-        path: "/add-course",
-        element: (
-          <PrivateRoute>
-            <AddCourse></AddCourse>
-          </PrivateRoute>
-        ),
-      },
-
-      {
-        path: "/courses",
+        path: "courses",
         Component: Courses,
         loader: () => fetch(`${import.meta.env.VITE_API_URL}/courses`),
-        hydrateFallbackElement: <Loading></Loading>,
+        hydrateFallbackElement: <Loading />,
       },
       {
-        path: "/manage-courses",
-        element: (
-          <PrivateRoute>
-            <ManageCourses></ManageCourses>
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "/update-course/:id",
+        path: "course-details/:id",
         loader: ({ params }) =>
           fetch(`${import.meta.env.VITE_API_URL}/course/${params.id}`),
-        element: (
-          <PrivateRoute>
-            <UpdateCourse></UpdateCourse>
-          </PrivateRoute>
-        ),
-        hydrateFallbackElement: <Loading />
+        element: <CourseDetails />,
+        hydrateFallbackElement: <Loading />,
       },
       {
-        path: "/course-details/:id",
-        loader: ({ params }) =>
-          fetch(`${import.meta.env.VITE_API_URL}/course/${params.id}`),
-        element: <CourseDetails></CourseDetails>,
-        hydrateFallbackElement: <Loading></Loading>,
+        path: "about",
+        Component: About,
       },
       {
-        path: "/signIn",
+        path: "signIn",
         Component: Login,
       },
       {
-        path: "/signUp",
+        path: "signUp",
         Component: SignUp,
       },
+    
+    ],
+  },
+  {
+    path: "dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
+    children: [
       {
-        path: "/courses",
-        Component: Courses,
+        index: true,
+        Component: DashboardOverview,
       },
       {
-        path: "/my-enrollments",
-        element: (
-          <PrivateRoute>
-            <MyEnrollments></MyEnrollments>
-          </PrivateRoute>
-        ),
+        path: "add-course",
+        Component: AddCourse,
       },
       {
-        path:'about',
-        Component: About
-      }
+        path: "manage-courses",
+        Component: ManageCourses,
+      },
+      {
+        path: "update-course/:id",
+        loader: ({ params }) =>
+          fetch(`${import.meta.env.VITE_API_URL}/course/${params.id}`),
+        element: <UpdateCourse />,
+        hydrateFallbackElement: <Loading />,
+      },
+      {
+        path: "my-enrollments",
+        Component: MyEnrollments,
+      },
+        {
+        path: "profile",
+        Component: UserProfile,
+      },
     ],
   },
   {

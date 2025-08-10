@@ -1,22 +1,21 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+/* index.css */
+
 @import "tailwindcss";
-@plugin "daisyui" {
-  themes: light --default;
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Define your custom colors */
+  --color-frame-light-1: #2563eb; /*Sidebar, buttons, links*/
+  --color-frame-dark-1: #3b82f6; /*Sidebar, buttons, links*/
+  --color-frame-light-2: #f9fafb; /*	Page background*/
+  --color-frame-dark-2: #111827; /*	Page background*/
+  --color-frame-light-3: #ffffff; /*Cards, panels*/
+  --color-frame-dark-3: #1f2937; /*Cards, panels*/
+  --color-frame-light-4: #111827; /*Main text*/
+  --color-frame-dark-4: #f3f4f6; /*Main text*/
 }
 
-@plugin "daisyui/theme" {
-  name: "light";
-  default: true;
-  --color-primary: #4F46E5;
-  --color-secondary: #F8FAFC;
-   --color-accent: #1E293B;
-}
-
-body {
-  font-family: "Inter", sans-serif;
-  overflow-x: hidden
-}
-
-a.active {
-  @apply text-[#1E293B] border-b border-primary rounded-none;
+body{
+    overflow-x: hidden;
 }

@@ -5,15 +5,15 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../firebase/firebase.init";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
-
-  // console.log(`user data from authProvider: ${user}`);
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -28,6 +28,30 @@ const AuthProvider = ({ children }) => {
   const signOutUser = () => {
     setLoading(true);
     return signOut(auth);
+  };
+
+  // Add the updateProfile function
+  const updateUserProfile = async (profileData) => {
+    setLoading(true);
+    try {
+      await updateProfile(auth.currentUser, profileData);
+
+      // Update the user state with the new profile data
+      setUser((prevUser) => ({
+        ...prevUser,
+        displayName: profileData.displayName || prevUser.displayName,
+        photoURL: profileData.photoURL || prevUser.photoURL,
+      }));
+
+      setLoading(false);
+      // Always return an object with success property
+      return { success: true };
+    } catch (error) {
+      setLoading(false);
+      toast.error(error.message);
+      // Always return an object with success property
+      return { success: false, error: error.message };
+    }
   };
 
   useEffect(() => {
@@ -48,7 +72,6 @@ const AuthProvider = ({ children }) => {
           });
       }
     });
-
     return () => unsubscribe();
   }, []);
 
@@ -60,6 +83,7 @@ const AuthProvider = ({ children }) => {
     signOutUser,
     user,
     setUser,
+    updateUserProfile,
   };
 
   return (
