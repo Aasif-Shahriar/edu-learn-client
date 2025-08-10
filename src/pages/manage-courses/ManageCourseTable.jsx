@@ -178,7 +178,7 @@ const ManageCourseTable = ({ courseAddedByPromise }) => {
                   return (
                     <tr
                       key={course._id}
-                      className="hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors duration-150"
+                      className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-150"
                     >
                       <td className="py-4 px-4">
                         <div className="font-medium text-gray-900 dark:text-white">
