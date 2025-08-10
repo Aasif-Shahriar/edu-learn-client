@@ -1,3 +1,4 @@
+// PopularCourses.jsx
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import Loading from "../../../components/loading/Loading";
@@ -14,7 +15,6 @@ const PopularCourses = () => {
   const [popularCourses, setPopularCourses] = useState([]);
   const [loading, setLoading] = useState(true);
 
-
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
@@ -29,38 +29,50 @@ const PopularCourses = () => {
 
   if (loading) return <Loading />;
 
+  // Group courses into chunks of 8 (2 rows x 4 columns)
+  const chunkedCourses = [];
+  for (let i = 0; i < popularCourses.length; i += 8) {
+    chunkedCourses.push(popularCourses.slice(i, i + 8));
+  }
+
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10">
-      <h2
-        data-aos="fade-right"
-        data-aos-delay="200"
-        className="text-3xl font-bold mb-4"
-      >
-        Featured Courses
-      </h2>
-      <p data-aos="fade-right" data-aos-delay="400" className="mb-8">
-        Explore our most popular and highly-rated courses
-      </p>
+    <div>
+      <div className="mb-10 text-center">
+        <h2
+          data-aos="fade-right"
+          data-aos-delay="200"
+          className="text-3xl md:text-4xl font-bold mb-3 text-gray-800 dark:text-white"
+        >
+          Featured Courses
+        </h2>
+        <p
+          data-aos="fade-right"
+          data-aos-delay="400"
+          className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
+        >
+          Explore our most popular and highly-rated courses
+        </p>
+      </div>
 
       <div data-aos="fade-up" data-aos-delay="600" className="relative">
-        {/* Custom Arrows */}
+        {/* Custom Navigation Arrows */}
         <button
           ref={prevRef}
-          className="absolute -bottom-5 left-0 z-10  bg-white p-3 rounded-full shadow hover:bg-primary hover:text-white transition"
+          className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-white dark:bg-gray-800 p-3 rounded-full shadow-lg hover:bg-blue-600 dark:hover:bg-blue-600 hover:text-white transition-all duration-300 -ml-4 md:-ml-6"
         >
-          <FaArrowLeft />
+          <FaArrowLeft className="text-gray-700 dark:text-gray-300" />
         </button>
         <button
           ref={nextRef}
-          className="absolute -bottom-5 right-3 z-10 bg-white p-3 rounded-full shadow hover:bg-primary hover:text-white transition"
+          className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-white dark:bg-gray-800 p-3 rounded-full shadow-lg hover:bg-blue-600 dark:hover:bg-blue-600 hover:text-white transition-all duration-300 -mr-4 md:-mr-6"
         >
-          <FaArrowRight />
+          <FaArrowRight className="text-gray-700 dark:text-gray-300" />
         </button>
 
         <Swiper
-          slidesPerView={3}
+          slidesPerView={1}
           spaceBetween={30}
-          loop={true}
+          loop={chunkedCourses.length > 1}
           navigation={{
             prevEl: prevRef.current,
             nextEl: nextRef.current,
@@ -73,22 +85,30 @@ const PopularCourses = () => {
           className="mySwiper"
           breakpoints={{
             320: { slidesPerView: 1 },
-            768: { slidesPerView: 2 },
-            1024: { slidesPerView: 3 },
+            768: { slidesPerView: 1 },
+            1024: { slidesPerView: 1 },
           }}
         >
-          {popularCourses.map((course) => (
-            <SwiperSlide key={course._id} className="py-10">
-              <PopularCourseCard course={course} />
+          {chunkedCourses.map((chunk, index) => (
+            <SwiperSlide key={index} className="pb-16">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {chunk.map((course) => (
+                  <PopularCourseCard key={course._id} course={course} />
+                ))}
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
 
-      <div data-aos="fade-up" data-aos-delay="600" className="text-center mt-8">
+      <div
+        data-aos="fade-up"
+        data-aos-delay="600"
+        className="text-center mt-10"
+      >
         <button
           onClick={() => navigate("/courses")}
-          className="btn btn-outline border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
+          className="px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 text-white font-medium rounded-lg transition-all duration-300 transform hover:-translate-y-0.5 shadow-lg hover:shadow-xl"
         >
           View All Courses
         </button>
