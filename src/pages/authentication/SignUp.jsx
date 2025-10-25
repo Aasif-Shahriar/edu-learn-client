@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { BiSolidLockAlt } from "react-icons/bi";
 import { FaEyeSlash, FaUser } from "react-icons/fa";
 import { MdEmail, MdInsertPhoto } from "react-icons/md";
@@ -21,10 +20,8 @@ const SignUp = () => {
   const navigate = useNavigate();
   const from = location.state?.from || "/";
 
-
-  const handlleSignUp = (e) => {
+  const handleSignUp = (e) => {
     e.preventDefault();
-
     const form = e.target;
     const formData = new FormData(form);
     const newUser = Object.fromEntries(formData.entries());
@@ -32,18 +29,17 @@ const SignUp = () => {
     const { userName, userEmail, password, confirmPassword, userPhoto } =
       newUser;
 
-
-    //password validation
+    // Password validation
     const validation = (password) => {
       const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/;
       return regex.test(password);
     };
     if (password.length < 8) {
-      return toast.warning("Password must be at-least 8 character long");
+      return toast.warning("Password must be at least 8 characters long");
     }
     if (!validation(password)) {
       return toast.warn(
-        "Password must have 1 uppercase, 1 lowercase, 1 special character and 1 number"
+        "Password must include uppercase, lowercase, number, and special character"
       );
     }
     if (password !== confirmPassword) {
@@ -52,10 +48,7 @@ const SignUp = () => {
 
     createUser(userEmail, password)
       .then((userCredential) => {
-        // Signed up
         const user = userCredential.user;
-
-
         updateProfile(user, {
           displayName: userName,
           photoURL: userPhoto,
@@ -69,7 +62,7 @@ const SignUp = () => {
                 { withCredentials: true }
               )
               .then(() => {
-                toast.success("Account has created successfully😀");
+                toast.success("Account created successfully 🎉");
                 navigate(from);
                 form.reset();
                 setLoading(false);
@@ -85,131 +78,116 @@ const SignUp = () => {
       })
       .catch((error) => {
         console.log(`error from createUser: ${error}`);
-        toast.error("This account is already exist!😑");
+        toast.error("This account already exists! 😑");
       });
   };
 
   return (
-    <div className="bg-secondary px-4">
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="w-full max-w-md p-8 shadow-lg bg-white rounded-lg">
-          <h2 className="text-2xl font-bold text-center mb-2 text-accent">
-            Create an Account
-          </h2>
-          <p className="text-center text-sm text-gray-500 mb-6">
-            Join to enroll in top courses and advance your career
-          </p>
+    <div className="bg-gray-100 dark:bg-gray-900 min-h-screen flex items-center justify-center px-4 transition-colors duration-300">
+      <div className="w-full max-w-md p-8 rounded-2xl shadow-lg bg-white dark:bg-gray-800 transition-colors duration-300">
+        <h2 className="text-2xl font-bold text-center mb-2 text-gray-800 dark:text-gray-100">
+          Create an Account
+        </h2>
+        <p className="text-center text-sm text-gray-500 dark:text-gray-400 mb-6">
+          Join to enroll in top courses and advance your career
+        </p>
 
-          <SocialLogin></SocialLogin>
+        <SocialLogin />
 
-          {/* form inputs */}
-          <form onSubmit={handlleSignUp} className="space-y-4">
-            {/* name */}
-            <label className="input input-bordered w-full flex items-center gap-2 ">
-              <FaUser size={16} className="text-accent/40" />
-              <input
-                type="text"
-                className="grow"
-                name="userName"
-                placeholder="Full Name"
-                required
-              />
-            </label>
-            {/* photo */}
-            <label className="input input-bordered w-full flex items-center gap-2 ">
-              <MdInsertPhoto size={18} className="text-accent/40" />
-              <input
-                type="text"
-                className="grow"
-                name="userPhoto"
-                placeholder="Photo URL"
-              />
-            </label>
-            {/* email */}
-            <label className="input input-bordered w-full flex items-center gap-2 ">
-              <MdEmail size={18} className="text-accent/40" />
-              <input
-                type="email"
-                className="grow"
-                name="userEmail"
-                placeholder="Email Address"
-                required
-              />
-            </label>
-            {/* password */}
-            <label className="input input-bordered w-full flex items-center gap-2 ">
-              <BiSolidLockAlt size={20} className="text-accent/40" />
-              <input
-                type={showPass ? "text" : "password"}
-                name="password"
-                className="grow"
-                placeholder="Password"
-                required
-              />
-              <span
-                onClick={() => {
-                  setShowPass(!showPass);
-                }}
-              >
-                {showPass ? (
-                  <FaEyeSlash
-                    size={20}
-                    className="text-primary/80 cursor-pointer"
-                  />
-                ) : (
-                  <PiEyesFill
-                    size={20}
-                    className="text-primary/80 cursor-pointer"
-                  />
-                )}
-              </span>
-            </label>
-            {/* confirm password */}
-            <label className="input input-bordered w-full flex items-center gap-2 ">
-              <BiSolidLockAlt size={20} className="text-accent/40" />
-              <input
-                type={showConfirmPass ? "text" : "password"}
-                name="confirmPassword"
-                className="grow"
-                placeholder="Confirm Password"
-                required
-              />
-              <span
-                onClick={() => {
-                  setShowConfirmPass(!showConfirmPass);
-                }}
-              >
-                {showConfirmPass ? (
-                  <FaEyeSlash
-                    size={20}
-                    className="text-primary/80 cursor-pointer"
-                  />
-                ) : (
-                  <PiEyesFill
-                    size={20}
-                    className="text-primary/80 cursor-pointer"
-                  />
-                )}
-              </span>
-            </label>
-
+        <form onSubmit={handleSignUp} className="space-y-4">
+          {/* Name */}
+          <div className="flex items-center gap-2 border border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2 focus-within:ring-2 focus-within:ring-blue-500">
+            <FaUser className="text-gray-400" size={16} />
             <input
-              type="submit"
-              value="Create Account"
-              className="btn btn-primary w-full"
+              type="text"
+              name="userName"
+              placeholder="Full Name"
+              required
+              className="w-full bg-transparent outline-none text-gray-800 dark:text-gray-100 placeholder-gray-400"
             />
-          </form>
+          </div>
 
-          <p className="text-sm text-center mt-4">
-            Already have an account?{" "}
-            <Link to="/signIn">
-              {" "}
-              <span className="text-blue-600 hover:underline font-bold">
-                Sign In
-              </span>
-            </Link>
-          </p>
-        </div>
+          {/* Photo URL */}
+          <div className="flex items-center gap-2 border border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2 focus-within:ring-2 focus-within:ring-blue-500">
+            <MdInsertPhoto className="text-gray-400" size={18} />
+            <input
+              type="text"
+              name="userPhoto"
+              placeholder="Photo URL"
+              className="w-full bg-transparent outline-none text-gray-800 dark:text-gray-100 placeholder-gray-400"
+            />
+          </div>
+
+          {/* Email */}
+          <div className="flex items-center gap-2 border border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2 focus-within:ring-2 focus-within:ring-blue-500">
+            <MdEmail className="text-gray-400" size={18} />
+            <input
+              type="email"
+              name="userEmail"
+              placeholder="Email Address"
+              required
+              className="w-full bg-transparent outline-none text-gray-800 dark:text-gray-100 placeholder-gray-400"
+            />
+          </div>
+
+          {/* Password */}
+          <div className="flex items-center gap-2 border border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2 focus-within:ring-2 focus-within:ring-blue-500">
+            <BiSolidLockAlt className="text-gray-400" size={20} />
+            <input
+              type={showPass ? "text" : "password"}
+              name="password"
+              placeholder="Password"
+              required
+              className="w-full bg-transparent outline-none text-gray-800 dark:text-gray-100 placeholder-gray-400"
+            />
+            <span
+              onClick={() => setShowPass(!showPass)}
+              className="cursor-pointer text-blue-600 dark:text-blue-400"
+            >
+              {showPass ? <FaEyeSlash size={20} /> : <PiEyesFill size={20} />}
+            </span>
+          </div>
+
+          {/* Confirm Password */}
+          <div className="flex items-center gap-2 border border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2 focus-within:ring-2 focus-within:ring-blue-500">
+            <BiSolidLockAlt className="text-gray-400" size={20} />
+            <input
+              type={showConfirmPass ? "text" : "password"}
+              name="confirmPassword"
+              placeholder="Confirm Password"
+              required
+              className="w-full bg-transparent outline-none text-gray-800 dark:text-gray-100 placeholder-gray-400"
+            />
+            <span
+              onClick={() => setShowConfirmPass(!showConfirmPass)}
+              className="cursor-pointer text-blue-600 dark:text-blue-400"
+            >
+              {showConfirmPass ? (
+                <FaEyeSlash size={20} />
+              ) : (
+                <PiEyesFill size={20} />
+              )}
+            </span>
+          </div>
+
+          {/* Submit */}
+          <button
+            type="submit"
+            className="w-full py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-colors duration-200"
+          >
+            Create Account
+          </button>
+        </form>
+
+        <p className="text-sm text-center mt-4 text-gray-600 dark:text-gray-300">
+          Already have an account?{" "}
+          <Link
+            to="/signIn"
+            className="text-blue-600 dark:text-blue-400 font-bold hover:underline"
+          >
+            Sign In
+          </Link>
+        </p>
       </div>
       <title>SignUp - EduLearn</title>
     </div>
